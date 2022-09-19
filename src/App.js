@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import initialData from "./id_data";
+import Typography from '@mui/material/Typography';
 
 function App() {
+
+const Data = [...initialData];
+
+console.log(Data);
+console.log(Data[15]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Typography variant="h1">New Quiz App<br /></Typography>
+      <Typography variant="p">{Data[27].capital}</Typography>
+      
     </div>
   );
 }
