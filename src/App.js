@@ -13,7 +13,7 @@ console.log(Data[15]);
     <div className="App">
       
       <Typography variant="h1">New Quiz App<br /></Typography>
-      <Typography variant="p">{Data[27].capital}</Typography>
+      <Typography variant="h3">{Data[27].capital}</Typography>
       
     </div>
   );
