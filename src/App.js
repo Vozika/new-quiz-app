@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import initialData from "./id_data";
+import initialData from "./test_data";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import Answers from "./components/answers/Answers";
 
-const splicedItemsFromData = [];
-const Data = [...initialData];
+// const splicedItemsFromData = [];
+// const Data = [...initialData];
 
 function App() {
+  const [Data, setData] = useState([...initialData]);
+  const [splicedItemsFromData, setSplicedItemsFromData] = useState([]);
   const [question, setQuestion] = useState({
     question: "What is the capital of",
     item: "",
@@ -37,6 +39,11 @@ function App() {
   }
 
   function mainAction() {
+    if (Data.length <= numberOfAnswers) {
+      setData([...initialData]);
+      setSplicedItemsFromData([]);
+    }
+
     setCurrentQuestion(currentQuestion + 1);
     const randomItemFromData = Data.splice(getRandom(Data.length), 1)[0];
     splicedItemsFromData.push(randomItemFromData);
@@ -91,7 +98,9 @@ function App() {
       setWrongAnswer(wrongAnswer + 1);
     }
 
-    mainAction();
+    if (currentQuestion < numberOfQuestions) {
+      mainAction();
+    }
   }
 
   function startQuiz() {
@@ -107,6 +116,7 @@ function App() {
     setScore(0);
     setFinish(false);
     setStart(true);
+    setMain(false);
   }
 
   console.log(Data);
@@ -148,13 +158,29 @@ function App() {
             Right Answers: {rightAnswer} Wrong Answers: {wrongAnswer} Score:{" "}
             {score}
           </Typography>
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{ marginTop: "2em" }}
+            onClick={startAgain}
+          >
+            Back to Start
+          </Button>
         </>
       )}
 
       {finish && (
         <>
           <Typography variant="h1">Finish!</Typography>
-          <Button variant="outlined" size="large" onClick={startAgain}>
+          <Typography variant="h4">
+            {rightAnswer} out of {numberOfQuestions} questions correct.
+          </Typography>
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{ marginTop: "2em" }}
+            onClick={startAgain}
+          >
             Start Again
           </Button>
         </>
