@@ -15,8 +15,7 @@ const Data = initialData.map((item) => ({ ...item }));
 const AnswerData = initialData.map((item) => ({ ...item }));
 
 function App() {
-  // const [Data, setData] = useState([...initialData]);
-  // const [AnswerData, setAnswerData] = useState([...initialData])
+
   const [splicedItemsFromData, setSplicedItemsFromData] = useState([]);
   const [question, setQuestion] = useState({
     question: "What is the capital of",
@@ -47,8 +46,7 @@ function App() {
 
   function mainAction() {
     // if (Data.length < numberOfAnswers) {
-    //   setData([...initialData]);
-    //   setSplicedItemsFromData([]);
+ 
     // }
 
     setCurrentQuestion(currentQuestion + 1);
