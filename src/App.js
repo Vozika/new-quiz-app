@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import initialData from "./test_data";
+import initialData from "./id_data";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import Fade from "@mui/material/Fade";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -10,15 +12,20 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Answers from "./components/answers/Answers";
 
-const splicedItemsFromData = [];
 const Data = initialData.map((item) => ({ ...item }));
-const AnswerData = initialData.map((item) => ({ ...item }));
 
 function App() {
+  const [flip, setFlip] = useState(false);
 
-  const [splicedItemsFromData, setSplicedItemsFromData] = useState([]);
+  const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
+  let questionItself = !flip
+    ? "What is the capital of"
+    : "is the capital of which country?";
+
+  console.log(flip);
+
   const [question, setQuestion] = useState({
-    question: "What is the capital of",
+    question: questionItself,
     item: "",
     answers: [
       {
@@ -45,57 +52,69 @@ function App() {
   }
 
   function mainAction() {
-    // if (Data.length < numberOfAnswers) {
- 
-    // }
-
     setCurrentQuestion(currentQuestion + 1);
-    const randomNumber = getRandom(Data.length);
-    const randomItemFromData = Data.splice(randomNumber, 1)[0];
-    const randomItemFromAnswerData = AnswerData.splice(AnswerData.indexOf(randomItemFromData), 1)[0];
-    console.log(Data);
-    console.log(Data.length);
-    console.log(AnswerData);
-    console.log(AnswerData.length);
-    splicedItemsFromData.push(randomItemFromData);
 
-    const answers = [];
-    
-    const randomItemFromDataForAnswers = {...randomItemFromData};
-    answers.push(randomItemFromDataForAnswers);
-    answers[0].isCorrect = true;
+    let randomNumber = null;
+    let questionItem = {};
+    const questionSubject = flip ? "capital" : "country";
+
+    function checkSlicedItems() {
+      randomNumber = getRandom(Data.length);
+      questionItem = Data.slice(randomNumber, randomNumber + 1)[0];
+
+      const match = slicedItemsFromData.find(
+        (item) => item[questionSubject] === questionItem[questionSubject]
+      );
+
+      if (match === undefined) {
+        questionItem.isCorrect = true;
+        slicedItemsFromData.push(questionItem);
+      } else {
+        checkSlicedItems();
+      }
+    }
+
+    checkSlicedItems();
+    console.log(slicedItemsFromData);
 
     const set = new Set();
 
+    function fakeAnswers() {
+      const random = getRandom(Data.length);
+
+      if (random !== randomNumber) {
+        set.add(random);
+      } else {
+        fakeAnswers();
+      }
+    }
+
     while (set.size < numberOfAnswers - 1) {
-      const random = getRandom(AnswerData.length);
-      set.add(random);
+      fakeAnswers();
     }
 
-    const fakeAnswersNumbers = Array.from(set);
-    fakeAnswersNumbers.forEach(pushFakeAnswers);
-
-    function pushFakeAnswers(item) {
-      const randomFakeAnswerFromData = AnswerData.slice(item, item + 1);
-      const fakeAnswer = randomFakeAnswerFromData.map((item) => ({ ...item }));
-
-      fakeAnswer[0].isCorrect = false;
-      answers.push(...fakeAnswer);
-    }
+    const fakeAnswersArray = Array.from(set);
+    const answers = fakeAnswersArray.map(
+      (item) => Data.slice(item, item + 1)[0]
+    );
+    answers.map((item) => (item.isCorrect = false));
+    answers.push(questionItem);
 
     answers.sort(function () {
       return 0.5 - Math.random();
     });
 
-    // Adding everything to a state object
+    //Adding everything to a state object
     setQuestion((prevQuestion) => ({
       ...prevQuestion,
-      item: randomItemFromData.country,
+      question: questionItself,
+      item: questionItem[questionSubject],
       answers: answers,
     }));
-    console.log(randomItemFromAnswerData);
-    AnswerData.splice(randomNumber, 0, randomItemFromAnswerData);
-    console.log(AnswerData);
+
+    if (slicedItemsFromData.length === Data.length) {
+      setSlicedItemsFromData([]);
+    }
   }
 
   function answerClicked(isCorrect) {
@@ -111,6 +130,7 @@ function App() {
     } else {
       setWrongAnswer(wrongAnswer + 1);
     }
+
     mainAction();
   }
 
@@ -121,6 +141,7 @@ function App() {
   }
 
   function startAgain() {
+    setFlip(false);
     setCurrentQuestion(0);
     setRightAnswer(0);
     setWrongAnswer(0);
@@ -130,8 +151,6 @@ function App() {
     setStart(true);
     setMain(false);
   }
-
-
 
   return (
     <div className="App">
@@ -143,7 +162,7 @@ function App() {
           </Typography>
           <br />
 
-          <FormControl>
+          <FormControl sx={{ margin: 0, textAlign: "center" }}>
             <FormLabel id="demo-row-radio-buttons-group-label">
               Number of questions
             </FormLabel>
@@ -153,11 +172,12 @@ function App() {
               name="row-radio-buttons-group"
             >
               <FormControlLabel
-                value={initialData.length}
+                value={Data.length}
                 control={<Radio />}
-                label={initialData.length}
+                label={Data.length}
                 onChange={() => {
-                  setNumberOfQuestions(initialData.length);
+                  setNumberOfQuestions(Data.length);
+                  setSlicedItemsFromData([]);
                 }}
               />
               <FormControlLabel
@@ -177,11 +197,18 @@ function App() {
                 }}
               />
             </RadioGroup>
-          </FormControl>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Flip the question"
+              onChange={() => {
+                setFlip((prevState) => !prevState);
+              }}
+            />
 
-          <Button variant="outlined" size="large" onClick={startQuiz}>
-            Start the Quiz!
-          </Button>
+            <Button variant="outlined" size="large" onClick={startQuiz}>
+              Start the Quiz!
+            </Button>
+          </FormControl>
         </>
       )}
 
@@ -190,17 +217,40 @@ function App() {
           <Typography variant="h4" sx={{ marginBottom: "0.55em" }}>
             Question {currentQuestion} out of {numberOfQuestions}
           </Typography>
-          <Typography variant="h2" sx={{ margin: 0 }}>
-            {question.question}
-          </Typography>
-          <Typography
-            variant="h1"
-            color="primary"
-            sx={{ marginBottom: "0.3em" }}
-          >
-            {question.item}?
-          </Typography>
-          <Answers question={question} answerClicked={answerClicked} />
+
+          {!flip && (
+            <div>
+              <Typography variant="h2" sx={{ margin: 0 }}>
+                {question.question}
+              </Typography>
+
+              <Typography
+                variant="h1"
+                color="primary"
+                sx={{ marginBottom: "0.3em" }}
+              >
+                <div>{question.item}?</div>
+              </Typography>
+            </div>
+          )}
+
+          {flip && (
+            <div>
+              <Typography variant="h1" color="primary" sx={{ margin: 0 }}>
+                {question.item}
+              </Typography>
+
+              <Typography variant="h2" sx={{ marginBottom: "0.6em" }}>
+                {question.question}
+              </Typography>
+            </div>
+          )}
+
+          <Answers
+            question={question}
+            flip={flip}
+            answerClicked={answerClicked}
+          />
           <br />
           <Typography variant="h4">
             Right Answers: {rightAnswer} Wrong Answers: {wrongAnswer} Score:{" "}

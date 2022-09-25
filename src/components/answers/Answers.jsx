@@ -2,6 +2,9 @@ import React from 'react'
 import Button from "@mui/material/Button";
 
 const Answers = (props) => {
+
+  const questionSubject = props.flip ? "country" : "capital";
+
   return (
     <div>
         {props.question.answers.map((answer) => {
@@ -18,7 +21,7 @@ const Answers = (props) => {
               fontSize: 20,
             }}
           >
-            {answer.capital}
+            {answer[questionSubject]}
           </Button>
         );
       })}
