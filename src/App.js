@@ -16,13 +16,11 @@ const Data = initialData.map((item) => ({ ...item }));
 
 function App() {
   const [flip, setFlip] = useState(false);
-
+  const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
     ? "What is the capital of"
     : "is the capital of which country?";
-
-  console.log(flip);
 
   const [question, setQuestion] = useState({
     question: questionItself,
@@ -35,6 +33,7 @@ function App() {
       },
     ],
   });
+  const [lessAnswers, setLessAnswers] = useState(false);
   const [numberOfAnswers, setNumberOfAnswers] = useState(4);
   const [score, setScore] = useState(0);
   const [rightAnswer, setRightAnswer] = useState(0);
@@ -44,6 +43,7 @@ function App() {
   const [finish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+  const [isClicked, setIsClicked] = useState(false);
 
   // Standart function for a random number
   function getRandom(a) {
@@ -51,8 +51,27 @@ function App() {
     return randomNumber;
   }
 
+  let answers = [];
+
   function mainAction() {
+    if (currentQuestion === numberOfQuestions) {
+      setTimeout(() => {
+        setMain(false);
+        setFinish(true);
+      }, 350);
+
+      return;
+    }
+
+    // setTimeout(() => {
+    setShowFade(true);
+    // }, 10);
+    setIsClicked(false);
+    setLessAnswers(false);
     setCurrentQuestion(currentQuestion + 1);
+
+    Data.map((item) => (item.toHide = false));
+    Data.map((item) => (item.color = false));
 
     let randomNumber = null;
     let questionItem = {};
@@ -94,11 +113,14 @@ function App() {
     }
 
     const fakeAnswersArray = Array.from(set);
-    const answers = fakeAnswersArray.map(
-      (item) => Data.slice(item, item + 1)[0]
-    );
+    answers = fakeAnswersArray.map((item) => Data.slice(item, item + 1)[0]);
     answers.map((item) => (item.isCorrect = false));
+    answers[0].toHide = true;
+    answers[1].toHide = true;
+
     answers.push(questionItem);
+
+    console.log(answers);
 
     answers.sort(function () {
       return 0.5 - Math.random();
@@ -118,20 +140,22 @@ function App() {
   }
 
   function answerClicked(isCorrect) {
-    if (currentQuestion === numberOfQuestions) {
-      setMain(false);
-      setFinish(true);
-      return;
+    if (!isClicked) {
+      
+      if (isCorrect) {
+        setScore(score + 1);
+        setRightAnswer(rightAnswer + 1);
+      } else {
+        setWrongAnswer(wrongAnswer + 1);
+      }
+
+      setShowFade(false);
+      setTimeout(() => {
+        mainAction();
+      }, 700);
     }
 
-    if (isCorrect) {
-      setScore(score + 1);
-      setRightAnswer(rightAnswer + 1);
-    } else {
-      setWrongAnswer(wrongAnswer + 1);
-    }
-
-    mainAction();
+    setIsClicked(true);
   }
 
   function startQuiz() {
@@ -151,6 +175,8 @@ function App() {
     setStart(true);
     setMain(false);
   }
+
+  console.log(numberOfAnswers);
 
   return (
     <div className="App">
@@ -223,22 +249,39 @@ function App() {
               <Typography variant="h2" sx={{ margin: 0 }}>
                 {question.question}
               </Typography>
-
-              <Typography
-                variant="h1"
-                color="primary"
-                sx={{ marginBottom: "0.3em" }}
+              <Fade
+                in={showFade}
+                timeout={{
+                  appear: 0,
+                  enter: 350,
+                  exit: 350,
+                }}
               >
-                <div>{question.item}?</div>
-              </Typography>
+                <Typography
+                  variant="h1"
+                  color="primary"
+                  sx={{ marginBottom: "0.3em" }}
+                >
+                  <div>{question.item}?</div>
+                </Typography>
+              </Fade>
             </div>
           )}
 
           {flip && (
             <div>
-              <Typography variant="h1" color="primary" sx={{ margin: 0 }}>
-                {question.item}
-              </Typography>
+              <Fade
+                in={showFade}
+                timeout={{
+                  appear: 0,
+                  enter: 350,
+                  exit: 350,
+                }}
+              >
+                <Typography variant="h1" color="primary" sx={{ margin: 0 }}>
+                  {question.item}
+                </Typography>
+              </Fade>
 
               <Typography variant="h2" sx={{ marginBottom: "0.6em" }}>
                 {question.question}
@@ -250,12 +293,28 @@ function App() {
             question={question}
             flip={flip}
             answerClicked={answerClicked}
+            lessAnswers={lessAnswers}
+            isClicked={isClicked}
+            numberOfAnswers={numberOfAnswers}
           />
+
           <br />
           <Typography variant="h4">
             Right Answers: {rightAnswer} Wrong Answers: {wrongAnswer} Score:{" "}
             {score}
           </Typography>
+
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{ marginTop: "2em" }}
+            onClick={() => {
+              setLessAnswers((prev) => !prev);
+            }}
+          >
+            50/50
+          </Button>
+
           <Button
             variant="outlined"
             size="large"
