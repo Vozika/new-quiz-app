@@ -204,7 +204,9 @@ function App() {
       <div className="container">
         {start && (
           <>
-            <Typography variant="h1">Capital Quiz 2.0</Typography>
+            <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)" }}>
+              Capital Quiz 2.0
+            </Typography>
 
             <br />
             <Card>
@@ -231,7 +233,7 @@ function App() {
                   >
                     <Typography
                       sx={{
-                        marginTop: 1.4,
+                        marginTop: 0,
                         justifyContent: "center",
                         alignItems: "center",
                         fontSize: "1.3rem",
@@ -286,10 +288,12 @@ function App() {
                       }}
                     />
                   </RadioGroup>
-                  <br />
+                  
 
-                  <Divider />
-                  <br />
+                  <Divider
+                  sx={{margin: "0.5em 0"}}
+                  />
+                  
                   <FormControlLabel
                     sx={{
                       margin: 0,
@@ -305,12 +309,14 @@ function App() {
                       setFlip((prevState) => !prevState);
                     }}
                   />
-                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 1.3 }}>
+                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
                     Now you know the capital. But what about the country?
                   </Typography>
-                  <br />
-                  <Divider />
-                  <br />
+                  
+                  <Divider
+                  sx={{margin: "0.7em 0"}}
+                  />
+                  
                   <FormControlLabel
                     sx={{
                       margin: 0,
@@ -326,18 +332,17 @@ function App() {
                       setShow5050((prevState) => !prevState);
                     }}
                   />
-                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 1.3 }}>
+                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
                     Let us give you a little help.
                   </Typography>
                 </FormControl>
               </CardContent>
             </Card>
-            <br />
-            <br />
+
             <Button
               variant="contained"
               size="large"
-              sx={{ height: 80, fontSize: 18 }}
+              sx={{ height: 60, fontSize: 18, marginTop: 2 }}
               onClick={startQuiz}
             >
               Start the Quiz!
@@ -364,7 +369,7 @@ function App() {
                   }}
                 />
 
-                <Typography variant="h4" sx={{ marginTop: 3 }}>
+                <Typography variant="h4" sx={{ marginTop: 1 }}>
                   {question.question}
                 </Typography>
 
@@ -379,7 +384,7 @@ function App() {
                   <Typography
                     variant="h1"
                     color="primary"
-                    sx={{ marginBottom: "0.2em" }}
+                    sx={{ marginBottom: "0.2em", fontSize: "calc(3vw + 30px)" }}
                   >
                     <div>{question.item}?</div>
                   </Typography>
@@ -412,12 +417,16 @@ function App() {
                     exit: 350,
                   }}
                 >
-                  <Typography variant="h1" color="primary" sx={{ margin: 0 }}>
+                  <Typography
+                    variant="h1"
+                    color="primary"
+                    sx={{ fontSize: "calc(3vw + 30px)", marginTop: 1 }}
+                  >
                     {question.item}
                   </Typography>
                 </Fade>
 
-                <Typography variant="h4" sx={{ marginBottom: "0.6em" }}>
+                <Typography variant="h4" sx={{ marginBottom: 1 }}>
                   {question.question}
                 </Typography>
               </div>
@@ -476,7 +485,7 @@ function App() {
                 <Button
                   variant="outlined"
                   size="large"
-                  sx={{ height: 80, fontSize: 18 }}
+                  sx={{ height: 60, fontSize: 16 }}
                   onClick={() => {
                     setLessAnswers((prev) => !prev);
                   }}
@@ -488,7 +497,7 @@ function App() {
               <Button
                 variant="outlined"
                 size="large"
-                sx={{ height: 80, fontSize: 18 }}
+                sx={{ height: 60, fontSize: 16 }}
                 onClick={startAgain}
               >
                 Back to Start
@@ -514,7 +523,7 @@ function App() {
               <Button
                 variant="contained"
                 size="large"
-                sx={{ height: 80, fontSize: 18, marginTop: "2em" }}
+                sx={{ height: 60, fontSize: 16, marginTop: "2em", lineHeight: "normal" }}
                 onClick={playAgain}
               >
                 Play Again
@@ -523,7 +532,7 @@ function App() {
               <Button
                 variant="outlined"
                 size="large"
-                sx={{ height: 80, fontSize: 18, marginTop: "2em" }}
+                sx={{ height: 60, fontSize: 16, marginTop: "2em", lineHeight: "normal" }}
                 onClick={startAgain}
               >
                 Back to Start

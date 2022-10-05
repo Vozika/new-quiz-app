@@ -27,15 +27,16 @@ const Answers = (props) => {
               // disabled={props.isClicked ? true : false}
               sx={{
                 width: 300,
-                height: 80,
-                margin: 1,
-                fontSize: 20,
+                height: 60,
+                margin: 0.5,
+                fontSize: 16,
+                lineHeight: "normal"
               }}
               key={answer.id}
             >
               {answer[questionSubject]}
             </Button>
-            <br />
+            
           </>
         );
       })}
@@ -62,14 +63,15 @@ const Answers = (props) => {
               key={answer.id}
               disabled={false}
               sx={{
-                width: 400,
-                height: 80,
-                margin: 1,
-                fontSize: 20,
+                width: 300,
+                height: 60,
+                margin: 0.5,
+                fontSize: 16,
+                lineHeight: "normal"
               }}
             >
               {answer[questionSubject]}
-            </Button><br />
+            </Button>
             </>
           )
         );
