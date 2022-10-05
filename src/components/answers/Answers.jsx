@@ -7,7 +7,7 @@ const Answers = (props) => {
   return !props.lessAnswers ? (
     <div>
       {props.question.answers.map((answer) => {
-        // console.log(answer);
+
         return (
           <>
             <Button
@@ -23,20 +23,17 @@ const Answers = (props) => {
                 answer.color = true;
                 props.answerClicked(answer.isCorrect);
               }}
-              
-              // disabled={props.isClicked ? true : false}
               sx={{
                 width: 300,
                 height: 60,
                 margin: 0.5,
                 fontSize: 16,
-                lineHeight: "normal"
+                lineHeight: "normal",
               }}
               key={answer.id}
             >
               {answer[questionSubject]}
             </Button>
-            
           </>
         );
       })}
@@ -47,31 +44,31 @@ const Answers = (props) => {
         return (
           !answer.toHide && (
             <>
-            <Button
-              variant="contained"
-              color={
-                props.isClicked && answer.isCorrect
-                  ? "success"
-                  : props.isClicked && !answer.isCorrect && answer.color
-                  ? "error"
-                  : "primary"
-              }
-              onClick={() => {
-                answer.color = true;
-                props.answerClicked(answer.isCorrect);
-              }}
-              key={answer.id}
-              disabled={false}
-              sx={{
-                width: 300,
-                height: 60,
-                margin: 0.5,
-                fontSize: 16,
-                lineHeight: "normal"
-              }}
-            >
-              {answer[questionSubject]}
-            </Button>
+              <Button
+                variant="contained"
+                color={
+                  props.isClicked && answer.isCorrect
+                    ? "success"
+                    : props.isClicked && !answer.isCorrect && answer.color
+                    ? "error"
+                    : "primary"
+                }
+                onClick={() => {
+                  answer.color = true;
+                  props.answerClicked(answer.isCorrect);
+                }}
+                key={answer.id}
+                disabled={false}
+                sx={{
+                  width: 300,
+                  height: 60,
+                  margin: 0.5,
+                  fontSize: 16,
+                  lineHeight: "normal",
+                }}
+              >
+                {answer[questionSubject]}
+              </Button>
             </>
           )
         );

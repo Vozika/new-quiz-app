@@ -2,27 +2,16 @@ import { useState } from "react";
 import "./App.css";
 import initialData from "./id_data";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
-import Card from "@mui/material/Card";
-import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import Chip from "@mui/material/Chip";
-import CardHeader from "@mui/material/CardHeader";
-import { red } from "@mui/material/colors";
-import CardContent from "@mui/material/CardContent";
-import SettingsIcon from "@mui/icons-material/Settings";
+
 import Answers from "./components/answers/Answers";
-import { borderRadius } from "@mui/system";
-import Divider from "@mui/material/Divider";
+import Finish from "./components/finish/Finish";
+import Start from "./components/start/Start";
+import Counter from "./components/counter/Counter";
+import Question from "./components/question/Question";
 
 const Data = initialData.map((item) => ({ ...item }));
 
@@ -203,234 +192,25 @@ function App() {
     <div className="App">
       <div className="container">
         {start && (
-          <>
-            <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)" }}>
-              Capital Quiz 2.0
-            </Typography>
-
-            <br />
-            <Card>
-              <CardHeader
-                sx={{
-                  fontSize: "1.3rem",
-                  bgcolor: "#bdbdbd",
-                  margin: 0,
-                  textAlign: "left",
-                }}
-                disableTypography
-                title="OPTIONS"
-                avatar={
-                  <Avatar sx={{ bgcolor: "#dd3131" }} aria-label="options">
-                    <SettingsIcon />
-                  </Avatar>
-                }
-              ></CardHeader>
-              <CardContent>
-                <FormControl sx={{ margin: 0 }}>
-                  <FormLabel
-                    id="demo-row-radio-buttons-group-label"
-                    sx={{ margin: 0 }}
-                  >
-                    <Typography
-                      sx={{
-                        marginTop: 0,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        fontSize: "1.3rem",
-                        fontWeight: "bold",
-                        color: "black",
-                      }}
-                    >
-                      Number of questions
-                    </Typography>
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    sx={{
-                      margin: 0,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FormControlLabel
-                      value={Data.length}
-                      control={<Radio />}
-                      label={Data.length}
-                      onChange={() => {
-                        setNumberOfQuestions(Data.length);
-                        setSlicedItemsFromData([]);
-                      }}
-                    />
-                    <FormControlLabel
-                      value={15}
-                      control={<Radio />}
-                      label="15"
-                      onChange={() => {
-                        setNumberOfQuestions(15);
-                      }}
-                    />
-                    <FormControlLabel
-                      value={10}
-                      control={<Radio />}
-                      label="10"
-                      onChange={() => {
-                        setNumberOfQuestions(10);
-                      }}
-                    />
-                    <FormControlLabel
-                      value={5}
-                      control={<Radio />}
-                      label="5"
-                      onChange={() => {
-                        setNumberOfQuestions(5);
-                      }}
-                    />
-                  </RadioGroup>
-                  
-
-                  <Divider
-                  sx={{margin: "0.5em 0"}}
-                  />
-                  
-                  <FormControlLabel
-                    sx={{
-                      margin: 0,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                    }}
-                    disableTypography
-                    control={<Checkbox />}
-                    label="Flip the question"
-                    onChange={() => {
-                      setFlip((prevState) => !prevState);
-                    }}
-                  />
-                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                    Now you know the capital. But what about the country?
-                  </Typography>
-                  
-                  <Divider
-                  sx={{margin: "0.7em 0"}}
-                  />
-                  
-                  <FormControlLabel
-                    sx={{
-                      margin: 0,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                    }}
-                    disableTypography
-                    control={<Checkbox />}
-                    label="Show 50/50"
-                    onChange={() => {
-                      setShow5050((prevState) => !prevState);
-                    }}
-                  />
-                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                    Let us give you a little help.
-                  </Typography>
-                </FormControl>
-              </CardContent>
-            </Card>
-
-            <Button
-              variant="contained"
-              size="large"
-              sx={{ height: 60, fontSize: 18, marginTop: 2 }}
-              onClick={startQuiz}
-            >
-              Start the Quiz!
-            </Button>
-          </>
+          <Start
+            Data={Data}
+            setNumberOfQuestions={setNumberOfQuestions}
+            setSlicedItemsFromData={setSlicedItemsFromData}
+            setShow5050={setShow5050}
+            startQuiz={startQuiz}
+            setFlip={setFlip}
+          />
         )}
 
         {main && (
           <>
-            {!flip && (
-              <div>
-                {/* <Typography variant="h5" sx={{ marginBottom: "0.55em" }}>
-                  Question {currentQuestion} out of {numberOfQuestions}
-                </Typography> */}
-
-                <Chip
-                  variant="outlined"
-                  label={`${currentQuestion} out of ${numberOfQuestions}`}
-                  sx={{
-                    height: 40,
-                    width: 140,
-                    fontSize: 18,
-                    borderRadius: 40,
-                  }}
-                />
-
-                <Typography variant="h4" sx={{ marginTop: 1 }}>
-                  {question.question}
-                </Typography>
-
-                <Fade
-                  in={showFade}
-                  timeout={{
-                    appear: 0,
-                    enter: 350,
-                    exit: 350,
-                  }}
-                >
-                  <Typography
-                    variant="h1"
-                    color="primary"
-                    sx={{ marginBottom: "0.2em", fontSize: "calc(3vw + 30px)" }}
-                  >
-                    <div>{question.item}?</div>
-                  </Typography>
-                </Fade>
-              </div>
-            )}
-
-            {flip && (
-              <div>
-                {/* <Typography variant="h5" sx={{ marginBottom: "0em" }}>
-                  Question {currentQuestion} out of {numberOfQuestions}
-                </Typography> */}
-
-                <Chip
-                  variant="outlined"
-                  label={`${currentQuestion} out of ${numberOfQuestions}`}
-                  sx={{
-                    height: 40,
-                    width: 140,
-                    fontSize: 18,
-                    borderRadius: 40,
-                  }}
-                />
-
-                <Fade
-                  in={showFade}
-                  timeout={{
-                    appear: 0,
-                    enter: 350,
-                    exit: 350,
-                  }}
-                >
-                  <Typography
-                    variant="h1"
-                    color="primary"
-                    sx={{ fontSize: "calc(3vw + 30px)", marginTop: 1 }}
-                  >
-                    {question.item}
-                  </Typography>
-                </Fade>
-
-                <Typography variant="h4" sx={{ marginBottom: 1 }}>
-                  {question.question}
-                </Typography>
-              </div>
-            )}
+            <Question
+              currentQuestion={currentQuestion}
+              numberOfQuestions={numberOfQuestions}
+              question={question}
+              showFade={showFade}
+              flip={flip}
+            />
 
             <Answers
               question={question}
@@ -443,36 +223,7 @@ function App() {
 
             <br />
 
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={2}
-            >
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-              >
-                <Typography variant="h5">Right</Typography>
-                {/* <ThumbUpIcon fontSize="large" /> */}
-                <Avatar sx={{ width: 60, height: 60 }}>{rightAnswer}</Avatar>
-              </Stack>
-
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-              >
-                <Typography variant="h5">Wrong</Typography>
-                {/* <ThumbDownIcon fontSize="large" /> */}
-                <Avatar sx={{ width: 60, height: 60 }}>{wrongAnswer}</Avatar>
-              </Stack>
-            </Stack>
-
-            {/* <Typography variant="h5">Score: {score}</Typography> */}
+            <Counter rightAnswer={rightAnswer} wrongAnswer={wrongAnswer} />
 
             <Stack
               direction="row"
@@ -507,38 +258,12 @@ function App() {
         )}
 
         {finish && (
-          <>
-            <Typography variant="h1">Finish!</Typography>
-            <Typography variant="h4">
-              {rightAnswer} out of {numberOfQuestions} questions correct.
-            </Typography>
-
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="baseline"
-              spacing={1}
-              sx={{ marginTop: 0 }}
-            >
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ height: 60, fontSize: 16, marginTop: "2em", lineHeight: "normal" }}
-                onClick={playAgain}
-              >
-                Play Again
-              </Button>
-
-              <Button
-                variant="outlined"
-                size="large"
-                sx={{ height: 60, fontSize: 16, marginTop: "2em", lineHeight: "normal" }}
-                onClick={startAgain}
-              >
-                Back to Start
-              </Button>
-            </Stack>
-          </>
+          <Finish
+            rightAnswer={rightAnswer}
+            numberOfQuestions={numberOfQuestions}
+            playAgain={playAgain}
+            startAgain={startAgain}
+          />
         )}
       </div>
     </div>
