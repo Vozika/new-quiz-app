@@ -1,17 +1,13 @@
 import { useState } from "react";
 import "./App.css";
 import initialData from "./id_data";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Fade from "@mui/material/Fade";
-import Stack from "@mui/material/Stack";
-import Chip from "@mui/material/Chip";
 
 import Answers from "./components/answers/Answers";
 import Finish from "./components/finish/Finish";
 import Start from "./components/start/Start";
 import Counter from "./components/counter/Counter";
 import Question from "./components/question/Question";
+import Buttons from "./components/buttons/Buttons";
 
 const Data = initialData.map((item) => ({ ...item }));
 
@@ -66,9 +62,7 @@ function App() {
       return;
     }
 
-    // setTimeout(() => {
     setShowFade(true);
-    // }, 10);
     setIsClicked(false);
     setLessAnswers(false);
     setCurrentQuestion(currentQuestion + 1);
@@ -225,35 +219,11 @@ function App() {
 
             <Counter rightAnswer={rightAnswer} wrongAnswer={wrongAnswer} />
 
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="baseline"
-              spacing={1}
-              sx={{ marginTop: 3.5 }}
-            >
-              {show5050 && (
-                <Button
-                  variant="outlined"
-                  size="large"
-                  sx={{ height: 60, fontSize: 16 }}
-                  onClick={() => {
-                    setLessAnswers((prev) => !prev);
-                  }}
-                >
-                  50/50
-                </Button>
-              )}
-
-              <Button
-                variant="outlined"
-                size="large"
-                sx={{ height: 60, fontSize: 16 }}
-                onClick={startAgain}
-              >
-                Back to Start
-              </Button>
-            </Stack>
+            <Buttons
+              show5050={show5050}
+              setLessAnswers={setLessAnswers}
+              startAgain={startAgain}
+            />
           </>
         )}
 
