@@ -1,4 +1,8 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { handleClose, handleOpen } from "../../features/modal/modalSlice";
+import { setShow5050 } from "../../features/options/optionsSlice";
+
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -19,6 +23,7 @@ import Fade from "@mui/material/Fade";
 
 import Divider from "@mui/material/Divider";
 
+
 const style = {
   textAlign: "center",
   position: "absolute",
@@ -37,14 +42,18 @@ const Start = ({
   Data,
   setNumberOfQuestions,
   setSlicedItemsFromData,
-  setShow5050,
+  
   startQuiz,
   setFlip,
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
+  const dispatch = useDispatch();
+  const {open} = useSelector((store) => store.modal);
+  // const {show5050} = useSelector((store) => store.options);
+  
   return (
     <div>
       <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)" }}>
@@ -55,7 +64,7 @@ const Start = ({
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={() => dispatch(handleClose())}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -178,9 +187,7 @@ const Start = ({
                     disableTypography
                     control={<Checkbox />}
                     label="Show 50/50"
-                    onChange={() => {
-                      setShow5050((prevState) => !prevState);
-                    }}
+                    onChange={() => dispatch(setShow5050())}
                   />
                   <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
                     Let us give you a little help.
@@ -214,7 +221,7 @@ const Start = ({
         variant="outlined"
         size="large"
         sx={{ height: 60, fontSize: 18, marginTop: 2 }}
-        onClick={handleOpen}
+        onClick={() => dispatch(handleOpen())}
       >
         Options
       </Button>

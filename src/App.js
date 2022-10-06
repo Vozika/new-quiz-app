@@ -2,6 +2,10 @@ import { useState } from "react";
 import "./App.css";
 import initialData from "./id_data";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setShow5050False } from "./features/options/optionsSlice";
+import { handleClose } from "./features/modal/modalSlice";
+
 import Answers from "./components/answers/Answers";
 import Finish from "./components/finish/Finish";
 import Start from "./components/start/Start";
@@ -12,8 +16,12 @@ import Buttons from "./components/buttons/Buttons";
 const Data = initialData.map((item) => ({ ...item }));
 
 function App() {
+  const dispatch = useDispatch();
+
+  const { show5050 } = useSelector((store) => store.options);
+
   const [flip, setFlip] = useState(false);
-  const [show5050, setShow5050] = useState(false);
+  // const [show5050, setShow5050] = useState(false);
   const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
@@ -162,7 +170,9 @@ function App() {
 
   function startAgain() {
     setFlip(false);
-    setShow5050(false);
+    // setShow5050(false);
+    dispatch(setShow5050False());
+    dispatch(handleClose());
     setCurrentQuestion(0);
     setRightAnswer(0);
     setWrongAnswer(0);
@@ -190,7 +200,7 @@ function App() {
             Data={Data}
             setNumberOfQuestions={setNumberOfQuestions}
             setSlicedItemsFromData={setSlicedItemsFromData}
-            setShow5050={setShow5050}
+            // setShow5050={setShow5050}
             startQuiz={startQuiz}
             setFlip={setFlip}
           />
