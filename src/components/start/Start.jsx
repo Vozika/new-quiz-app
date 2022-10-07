@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleClose, handleOpen } from "../../features/modal/modalSlice";
-import { setShow5050 } from "../../features/options/optionsSlice";
+import { setShow5050, setFlip, setNumberOfQuestions } from "../../features/options/optionsSlice";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -40,11 +40,11 @@ const style = {
 
 const Start = ({
   Data,
-  setNumberOfQuestions,
+  
   setSlicedItemsFromData,
   
   startQuiz,
-  setFlip,
+  
 }) => {
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
@@ -123,7 +123,7 @@ const Start = ({
                       control={<Radio />}
                       label={Data.length}
                       onChange={() => {
-                        setNumberOfQuestions(Data.length);
+                        dispatch(setNumberOfQuestions(Data.length));
                         setSlicedItemsFromData([]);
                       }}
                     />
@@ -132,7 +132,7 @@ const Start = ({
                       control={<Radio />}
                       label="15"
                       onChange={() => {
-                        setNumberOfQuestions(15);
+                        dispatch(setNumberOfQuestions(15));
                       }}
                     />
                     <FormControlLabel
@@ -140,7 +140,7 @@ const Start = ({
                       control={<Radio />}
                       label="10"
                       onChange={() => {
-                        setNumberOfQuestions(10);
+                        dispatch(setNumberOfQuestions(10));
                       }}
                     />
                     <FormControlLabel
@@ -148,7 +148,7 @@ const Start = ({
                       control={<Radio />}
                       label="5"
                       onChange={() => {
-                        setNumberOfQuestions(5);
+                        dispatch(setNumberOfQuestions(5));
                       }}
                     />
                   </RadioGroup>
@@ -167,7 +167,7 @@ const Start = ({
                     control={<Checkbox />}
                     label="Flip the question"
                     onChange={() => {
-                      setFlip((prevState) => !prevState);
+                      dispatch(setFlip());
                     }}
                   />
                   <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>

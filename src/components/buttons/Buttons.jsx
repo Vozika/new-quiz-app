@@ -2,7 +2,13 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-const Buttons = ({ show5050, setLessAnswers, startAgain }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { setLessAnswers } from "../../features/options/optionsSlice";
+
+const Buttons = ({ startAgain }) => {
+  const dispatch = useDispatch();
+  const { show5050 } = useSelector((store) => store.options);
+
   return (
     <div>
       <Stack
@@ -18,7 +24,7 @@ const Buttons = ({ show5050, setLessAnswers, startAgain }) => {
             size="large"
             sx={{ height: 60, fontSize: 16 }}
             onClick={() => {
-              setLessAnswers((prev) => !prev);
+              dispatch(setLessAnswers());
             }}
           >
             50/50

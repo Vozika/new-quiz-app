@@ -3,13 +3,18 @@ import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 
+import { useSelector } from "react-redux";
+
 const Question = ({
   currentQuestion,
-  numberOfQuestions,
+  
   question,
   showFade,
-  flip,
+  
 }) => {
+
+  const {numberOfQuestions, flip} = useSelector((store) => store.options);
+
   if (!flip) {
     return (
       <div>

@@ -1,10 +1,13 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const Answers = (props) => {
-  const questionSubject = props.flip ? "country" : "capital";
+import { useSelector } from "react-redux";
 
-  return !props.lessAnswers ? (
+const Answers = (props) => {
+  const { lessAnswers, flip } = useSelector((store) => store.options);
+  const questionSubject = flip ? "country" : "capital";
+
+  return !lessAnswers ? (
     <div>
       {props.question.answers.map((answer) => {
 

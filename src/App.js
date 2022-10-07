@@ -3,7 +3,12 @@ import "./App.css";
 import initialData from "./id_data";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setShow5050False } from "./features/options/optionsSlice";
+import {
+  setShow5050False,
+  setLessAnswersFalse,
+  setFlipFalse,
+  setNumberOfQuestions,
+} from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
 
 import Answers from "./components/answers/Answers";
@@ -18,9 +23,9 @@ const Data = initialData.map((item) => ({ ...item }));
 function App() {
   const dispatch = useDispatch();
 
-  const { show5050 } = useSelector((store) => store.options);
+  const { flip, numberOfQuestions } = useSelector((store) => store.options);
 
-  const [flip, setFlip] = useState(false);
+  // const [flip, setFlip] = useState(false);
   // const [show5050, setShow5050] = useState(false);
   const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
@@ -39,7 +44,7 @@ function App() {
       },
     ],
   });
-  const [lessAnswers, setLessAnswers] = useState(false);
+  // const [lessAnswers, setLessAnswers] = useState(false);
   const [numberOfAnswers, setNumberOfAnswers] = useState(4);
   const [score, setScore] = useState(0);
   const [rightAnswer, setRightAnswer] = useState(0);
@@ -48,7 +53,7 @@ function App() {
   const [main, setMain] = useState(false);
   const [finish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+  // const [numberOfQuestions, setNumberOfQuestions] = useState(10);
   const [isClicked, setIsClicked] = useState(false);
 
   // Standart function for a random number
@@ -72,7 +77,7 @@ function App() {
 
     setShowFade(true);
     setIsClicked(false);
-    setLessAnswers(false);
+    dispatch(setLessAnswersFalse());
     setCurrentQuestion(currentQuestion + 1);
 
     Data.map((item) => (item.toHide = false));
@@ -125,8 +130,6 @@ function App() {
 
     answers.push(questionItem);
 
-    console.log(answers);
-
     answers.sort(function () {
       return 0.5 - Math.random();
     });
@@ -169,7 +172,7 @@ function App() {
   }
 
   function startAgain() {
-    setFlip(false);
+    dispatch(setFlipFalse());
     // setShow5050(false);
     dispatch(setShow5050False());
     dispatch(handleClose());
@@ -177,7 +180,7 @@ function App() {
     setRightAnswer(0);
     setWrongAnswer(0);
     setScore(0);
-    setNumberOfQuestions(10);
+    dispatch(setNumberOfQuestions(10));
     setFinish(false);
     setStart(true);
     setMain(false);
@@ -198,11 +201,11 @@ function App() {
         {start && (
           <Start
             Data={Data}
-            setNumberOfQuestions={setNumberOfQuestions}
+            // setNumberOfQuestions={setNumberOfQuestions}
             setSlicedItemsFromData={setSlicedItemsFromData}
             // setShow5050={setShow5050}
             startQuiz={startQuiz}
-            setFlip={setFlip}
+            // setFlip={setFlip}
           />
         )}
 
@@ -210,17 +213,14 @@ function App() {
           <>
             <Question
               currentQuestion={currentQuestion}
-              numberOfQuestions={numberOfQuestions}
               question={question}
               showFade={showFade}
-              flip={flip}
             />
 
             <Answers
               question={question}
-              flip={flip}
               answerClicked={answerClicked}
-              lessAnswers={lessAnswers}
+              // lessAnswers={lessAnswers}
               isClicked={isClicked}
               numberOfAnswers={numberOfAnswers}
             />
@@ -229,11 +229,7 @@ function App() {
 
             <Counter rightAnswer={rightAnswer} wrongAnswer={wrongAnswer} />
 
-            <Buttons
-              show5050={show5050}
-              setLessAnswers={setLessAnswers}
-              startAgain={startAgain}
-            />
+            <Buttons startAgain={startAgain} />
           </>
         )}
 
