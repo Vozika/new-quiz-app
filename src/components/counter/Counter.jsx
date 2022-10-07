@@ -3,7 +3,11 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 
-const Counter = ({ rightAnswer, wrongAnswer }) => {
+import { useSelector } from "react-redux";
+
+const Counter = () => {
+  const { rightAnswer, wrongAnswer } = useSelector((store) => store.score);
+
   return (
     <div>
       <Stack

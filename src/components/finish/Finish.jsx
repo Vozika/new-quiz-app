@@ -1,9 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-const Finish = ({ rightAnswer, numberOfQuestions, playAgain, startAgain }) => {
+const Finish = ({ playAgain, startAgain }) => {
+
+  const {numberOfQuestions} = useSelector((store) => store.options);
+  const {rightAnswer} = useSelector((store) => store.score);
+
   return (
     <div>
       <Typography variant="h1">Finish!</Typography>

@@ -10,6 +10,12 @@ import {
   setNumberOfQuestions,
 } from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
+import {
+  setRightAnswer,
+  setWrongAnswer,
+  clearRightAnswer,
+  clearWrongAnswer,
+} from "./features/score/scoreSlice";
 
 import Answers from "./components/answers/Answers";
 import Finish from "./components/finish/Finish";
@@ -25,8 +31,6 @@ function App() {
 
   const { flip, numberOfQuestions } = useSelector((store) => store.options);
 
-  // const [flip, setFlip] = useState(false);
-  // const [show5050, setShow5050] = useState(false);
   const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
@@ -44,16 +48,15 @@ function App() {
       },
     ],
   });
-  // const [lessAnswers, setLessAnswers] = useState(false);
+
   const [numberOfAnswers, setNumberOfAnswers] = useState(4);
   const [score, setScore] = useState(0);
-  const [rightAnswer, setRightAnswer] = useState(0);
-  const [wrongAnswer, setWrongAnswer] = useState(0);
+
   const [start, setStart] = useState(true);
   const [main, setMain] = useState(false);
   const [finish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  // const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+
   const [isClicked, setIsClicked] = useState(false);
 
   // Standart function for a random number
@@ -151,9 +154,9 @@ function App() {
     if (!isClicked) {
       if (isCorrect) {
         setScore(score + 1);
-        setRightAnswer(rightAnswer + 1);
+        dispatch(setRightAnswer());
       } else {
-        setWrongAnswer(wrongAnswer + 1);
+        dispatch(setWrongAnswer());
       }
 
       setShowFade(false);
@@ -173,12 +176,11 @@ function App() {
 
   function startAgain() {
     dispatch(setFlipFalse());
-    // setShow5050(false);
     dispatch(setShow5050False());
     dispatch(handleClose());
     setCurrentQuestion(0);
-    setRightAnswer(0);
-    setWrongAnswer(0);
+    dispatch(clearRightAnswer());
+    dispatch(clearWrongAnswer());
     setScore(0);
     dispatch(setNumberOfQuestions(10));
     setFinish(false);
@@ -187,8 +189,8 @@ function App() {
   }
 
   function playAgain() {
-    setRightAnswer(0);
-    setWrongAnswer(0);
+    dispatch(clearRightAnswer());
+    dispatch(clearWrongAnswer());
     setScore(0);
     setFinish(false);
     setMain(true);
@@ -201,11 +203,8 @@ function App() {
         {start && (
           <Start
             Data={Data}
-            // setNumberOfQuestions={setNumberOfQuestions}
             setSlicedItemsFromData={setSlicedItemsFromData}
-            // setShow5050={setShow5050}
             startQuiz={startQuiz}
-            // setFlip={setFlip}
           />
         )}
 
@@ -220,27 +219,19 @@ function App() {
             <Answers
               question={question}
               answerClicked={answerClicked}
-              // lessAnswers={lessAnswers}
               isClicked={isClicked}
               numberOfAnswers={numberOfAnswers}
             />
 
             <br />
 
-            <Counter rightAnswer={rightAnswer} wrongAnswer={wrongAnswer} />
+            <Counter />
 
             <Buttons startAgain={startAgain} />
           </>
         )}
 
-        {finish && (
-          <Finish
-            rightAnswer={rightAnswer}
-            numberOfQuestions={numberOfQuestions}
-            playAgain={playAgain}
-            startAgain={startAgain}
-          />
-        )}
+        {finish && <Finish playAgain={playAgain} startAgain={startAgain} />}
       </div>
     </div>
   );
