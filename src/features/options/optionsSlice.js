@@ -5,6 +5,7 @@ const initialState = {
   flip: false,
   lessAnswers: false,
   numberOfQuestions: 10,
+  numberOfAnswers: 4,
 };
 
 const optionsSlice = createSlice({

@@ -6,14 +6,15 @@ import Fade from "@mui/material/Fade";
 import { useSelector } from "react-redux";
 
 const Question = ({
-  currentQuestion,
-  
+    
   question,
-  showFade,
+  
   
 }) => {
 
   const {numberOfQuestions, flip} = useSelector((store) => store.options);
+  const { currentQuestion } = useSelector((store) => store.score);
+  const { showFade } = useSelector((store) => store.utils);
 
   if (!flip) {
     return (

@@ -15,7 +15,13 @@ import {
   setWrongAnswer,
   clearRightAnswer,
   clearWrongAnswer,
+  setCurrentQuestion,
+  clearCurrentQuestion,
+  setScore,
+  clearScore
 } from "./features/score/scoreSlice";
+
+import { setShowFadeTrue, setShowFadeFalse } from "./features/utils/utilsSlice";
 
 import Answers from "./components/answers/Answers";
 import Finish from "./components/finish/Finish";
@@ -29,9 +35,10 @@ const Data = initialData.map((item) => ({ ...item }));
 function App() {
   const dispatch = useDispatch();
 
-  const { flip, numberOfQuestions } = useSelector((store) => store.options);
+  const { flip, numberOfQuestions, numberOfAnswers } = useSelector((store) => store.options);
+  const { currentQuestion } = useSelector((store) => store.score)
 
-  const [showFade, setShowFade] = useState(true);
+  // const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
     ? "What is the capital of"
@@ -49,14 +56,10 @@ function App() {
     ],
   });
 
-  const [numberOfAnswers, setNumberOfAnswers] = useState(4);
-  const [score, setScore] = useState(0);
-
   const [start, setStart] = useState(true);
   const [main, setMain] = useState(false);
   const [finish, setFinish] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-
+  
   const [isClicked, setIsClicked] = useState(false);
 
   // Standart function for a random number
@@ -70,7 +73,7 @@ function App() {
   function mainAction() {
     if (currentQuestion === numberOfQuestions && main) {
       setTimeout(() => {
-        setCurrentQuestion(0);
+        dispatch(clearCurrentQuestion());
         setMain(false);
         setFinish(true);
       }, 350);
@@ -78,10 +81,10 @@ function App() {
       return;
     }
 
-    setShowFade(true);
+    dispatch(setShowFadeTrue());
     setIsClicked(false);
     dispatch(setLessAnswersFalse());
-    setCurrentQuestion(currentQuestion + 1);
+    dispatch(setCurrentQuestion());
 
     Data.map((item) => (item.toHide = false));
     Data.map((item) => (item.color = false));
@@ -153,13 +156,13 @@ function App() {
   function answerClicked(isCorrect) {
     if (!isClicked) {
       if (isCorrect) {
-        setScore(score + 1);
+        dispatch(setScore());
         dispatch(setRightAnswer());
       } else {
         dispatch(setWrongAnswer());
       }
 
-      setShowFade(false);
+      dispatch(setShowFadeFalse());
       setTimeout(() => {
         mainAction();
       }, 700);
@@ -178,10 +181,10 @@ function App() {
     dispatch(setFlipFalse());
     dispatch(setShow5050False());
     dispatch(handleClose());
-    setCurrentQuestion(0);
+    dispatch(clearCurrentQuestion());
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
-    setScore(0);
+    dispatch(clearScore());
     dispatch(setNumberOfQuestions(10));
     setFinish(false);
     setStart(true);
@@ -191,7 +194,7 @@ function App() {
   function playAgain() {
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
-    setScore(0);
+    dispatch(clearScore());
     setFinish(false);
     setMain(true);
     mainAction();
@@ -211,16 +214,16 @@ function App() {
         {main && (
           <>
             <Question
-              currentQuestion={currentQuestion}
+              
               question={question}
-              showFade={showFade}
+              // showFade={showFade}
             />
 
             <Answers
               question={question}
               answerClicked={answerClicked}
               isClicked={isClicked}
-              numberOfAnswers={numberOfAnswers}
+              
             />
 
             <br />
