@@ -16,11 +16,46 @@ const utilsSlice = createSlice({
       state.showFade = true;
     },
     setShowFadeFalse: (state) => {
-        state.showFade = false;
-      },
+      state.showFade = false;
+    },
+    setIsClickedTrue: (state) => {
+      state.isClicked = true;
+    },
+    setIsClickedFalse: (state) => {
+      state.isClicked = false;
+    },
+    setStartTrue: (state) => {
+      state.start = true;
+    },
+    setStartFalse: (state) => {
+      state.start = false;
+    },
+    setMainTrue: (state) => {
+      state.main = true;
+    },
+    setMainFalse: (state) => {
+      state.main = false;
+    },
+    setFinishTrue: (state) => {
+      state.finish = true;
+    },
+    setFinishFalse: (state) => {
+      state.finish = false;
+    },
   },
 });
 
-export const { setShowFadeTrue, setShowFadeFalse } = utilsSlice.actions;
+export const {
+  setShowFadeTrue,
+  setShowFadeFalse,
+  setIsClickedTrue,
+  setIsClickedFalse,
+  setStartTrue,
+  setStartFalse,
+  setMainTrue,
+  setMainFalse,
+  setFinishTrue,
+  setFinishFalse
+} = utilsSlice.actions;
 
 export default utilsSlice.reducer;

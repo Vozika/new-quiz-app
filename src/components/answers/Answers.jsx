@@ -5,20 +5,20 @@ import { useSelector } from "react-redux";
 
 const Answers = (props) => {
   const { lessAnswers, flip } = useSelector((store) => store.options);
+  const { isClicked } = useSelector((store) => store.utils);
   const questionSubject = flip ? "country" : "capital";
 
   return !lessAnswers ? (
     <div>
       {props.question.answers.map((answer) => {
-
         return (
           <>
             <Button
               variant="contained"
               color={
-                props.isClicked && answer.isCorrect
+                isClicked && answer.isCorrect
                   ? "success"
-                  : props.isClicked && !answer.isCorrect && answer.color
+                  : isClicked && !answer.isCorrect && answer.color
                   ? "error"
                   : "primary"
               }
@@ -50,9 +50,9 @@ const Answers = (props) => {
               <Button
                 variant="contained"
                 color={
-                  props.isClicked && answer.isCorrect
+                  isClicked && answer.isCorrect
                     ? "success"
-                    : props.isClicked && !answer.isCorrect && answer.color
+                    : isClicked && !answer.isCorrect && answer.color
                     ? "error"
                     : "primary"
                 }

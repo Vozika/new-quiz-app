@@ -18,10 +18,17 @@ import {
   setCurrentQuestion,
   clearCurrentQuestion,
   setScore,
-  clearScore
+  clearScore,
 } from "./features/score/scoreSlice";
 
-import { setShowFadeTrue, setShowFadeFalse } from "./features/utils/utilsSlice";
+import {
+  setShowFadeTrue,
+  setShowFadeFalse,
+  setIsClickedTrue,
+  setIsClickedFalse,
+  setStartTrue,
+  setStartFalse,
+} from "./features/utils/utilsSlice";
 
 import Answers from "./components/answers/Answers";
 import Finish from "./components/finish/Finish";
@@ -35,10 +42,12 @@ const Data = initialData.map((item) => ({ ...item }));
 function App() {
   const dispatch = useDispatch();
 
-  const { flip, numberOfQuestions, numberOfAnswers } = useSelector((store) => store.options);
-  const { currentQuestion } = useSelector((store) => store.score)
+  const { flip, numberOfQuestions, numberOfAnswers } = useSelector(
+    (store) => store.options
+  );
+  const { currentQuestion } = useSelector((store) => store.score);
+  const { isClicked, start } = useSelector((store) => store.utils);
 
-  // const [showFade, setShowFade] = useState(true);
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
     ? "What is the capital of"
@@ -56,11 +65,9 @@ function App() {
     ],
   });
 
-  const [start, setStart] = useState(true);
+  // const [start, setStart] = useState(true);
   const [main, setMain] = useState(false);
   const [finish, setFinish] = useState(false);
-  
-  const [isClicked, setIsClicked] = useState(false);
 
   // Standart function for a random number
   function getRandom(a) {
@@ -82,7 +89,7 @@ function App() {
     }
 
     dispatch(setShowFadeTrue());
-    setIsClicked(false);
+    dispatch(setIsClickedFalse());
     dispatch(setLessAnswersFalse());
     dispatch(setCurrentQuestion());
 
@@ -168,11 +175,11 @@ function App() {
       }, 700);
     }
 
-    setIsClicked(true);
+    dispatch(setIsClickedTrue());
   }
 
   function startQuiz() {
-    setStart(false);
+    dispatch(setStartFalse());
     setMain(true);
     mainAction();
   }
@@ -187,7 +194,7 @@ function App() {
     dispatch(clearScore());
     dispatch(setNumberOfQuestions(10));
     setFinish(false);
-    setStart(true);
+    dispatch(setStartTrue());
     setMain(false);
   }
 
@@ -213,18 +220,9 @@ function App() {
 
         {main && (
           <>
-            <Question
-              
-              question={question}
-              // showFade={showFade}
-            />
+            <Question question={question} />
 
-            <Answers
-              question={question}
-              answerClicked={answerClicked}
-              isClicked={isClicked}
-              
-            />
+            <Answers question={question} answerClicked={answerClicked} />
 
             <br />
 
