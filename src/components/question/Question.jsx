@@ -18,7 +18,7 @@ const Question = ({ question }) => {
           label={`${currentQuestion} out of ${numberOfQuestions}`}
           sx={{
             height: 40,
-            width: 140,
+            width: 160,
             fontSize: 18,
             borderRadius: 40,
           }}

@@ -6,6 +6,8 @@ const initialState = {
   lessAnswers: false,
   numberOfQuestions: 10,
   numberOfAnswers: 4,
+  ironMan: false,
+  ironManModal: false,
 };
 
 const optionsSlice = createSlice({
@@ -33,6 +35,18 @@ const optionsSlice = createSlice({
     setNumberOfQuestions: (state, number) => {
       state.numberOfQuestions = number.payload;
     },
+    setIronManTrue: (state) => {
+      state.ironMan = true;
+    },
+    setIronManFalse: (state) => {
+      state.ironMan = false;
+    },
+    setIronManModalTrue: (state) => {
+      state.ironManModal = true;
+    },
+    setIronManModalFalse: (state) => {
+      state.ironManModal = false;
+    },
   },
 });
 
@@ -44,6 +58,10 @@ export const {
   setFlip,
   setFlipFalse,
   setNumberOfQuestions,
+  setIronManTrue,
+  setIronManFalse,
+  setIronManModalTrue,
+  setIronManModalFalse
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

@@ -8,6 +8,7 @@ import {
   setLessAnswersFalse,
   setFlipFalse,
   setNumberOfQuestions,
+  setIronManFalse,
 } from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
 import {
@@ -46,7 +47,7 @@ const Data = initialData.map((item) => ({ ...item }));
 function App() {
   const dispatch = useDispatch();
 
-  const { flip, numberOfQuestions, numberOfAnswers } = useSelector(
+  const { flip, numberOfQuestions, numberOfAnswers, ironMan } = useSelector(
     (store) => store.options
   );
   const { currentQuestion } = useSelector((store) => store.score);
@@ -54,7 +55,8 @@ function App() {
     (store) => store.utils
   );
 
-  const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
+  let slicedItemsFromData = [];
+
   let questionItself = !flip
     ? "What is the capital of"
     : "is the capital of which country?";
@@ -79,12 +81,16 @@ function App() {
 
   let answers = [];
 
+  function theEnd() {
+    dispatch(clearCurrentQuestion());
+    dispatch(setMainFalse());
+    dispatch(setFinishTrue());
+  }
+
   function mainAction() {
     if (currentQuestion === numberOfQuestions && main) {
       setTimeout(() => {
-        dispatch(clearCurrentQuestion());
-        dispatch(setMainFalse());
-        dispatch(setFinishTrue());
+        theEnd();
       }, 350);
 
       return;
@@ -119,7 +125,6 @@ function App() {
     }
 
     checkSlicedItems();
-    console.log(slicedItemsFromData);
 
     const set = new Set();
 
@@ -158,7 +163,7 @@ function App() {
     }));
 
     if (slicedItemsFromData.length === Data.length) {
-      setSlicedItemsFromData([]);
+      slicedItemsFromData = [];
     }
   }
 
@@ -168,6 +173,14 @@ function App() {
         dispatch(setScore());
         dispatch(setRightAnswer());
       } else {
+        if (ironMan) {
+          localStorage.setItem("ironManStreak", JSON.stringify(currentQuestion - 1));
+          setTimeout(() => {
+            theEnd();
+          }, 350);
+
+          return;
+        }
         dispatch(setWrongAnswer());
       }
 
@@ -187,6 +200,7 @@ function App() {
   }
 
   function startAgain() {
+    dispatch(setIronManFalse());
     dispatch(setFlipFalse());
     dispatch(setShow5050False());
     dispatch(handleClose());
@@ -201,6 +215,10 @@ function App() {
   }
 
   function playAgain() {
+    if (ironMan) {
+      slicedItemsFromData = [];
+    }
+
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
     dispatch(clearScore());
@@ -215,7 +233,7 @@ function App() {
         {start && (
           <Start
             Data={Data}
-            setSlicedItemsFromData={setSlicedItemsFromData}
+            slicedItemsFromData={slicedItemsFromData}
             startQuiz={startQuiz}
           />
         )}

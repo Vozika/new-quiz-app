@@ -6,17 +6,22 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 const Finish = ({ playAgain, startAgain }) => {
-
-  const {numberOfQuestions} = useSelector((store) => store.options);
-  const {rightAnswer} = useSelector((store) => store.score);
+  const { numberOfQuestions, ironMan } = useSelector((store) => store.options);
+  const { rightAnswer } = useSelector((store) => store.score);
+  const longestStreak = localStorage.getItem("ironManStreak");
 
   return (
     <div>
       <Typography variant="h1">Finish!</Typography>
       <Typography variant="h4">
         {rightAnswer} out of {numberOfQuestions} questions correct.
-      </Typography>
-
+      
+      {ironMan && (
+        <> Your longest Iron Man Mode win streak is {longestStreak} questions.</>
+          
+        
+      )}
+</Typography>
       <Stack
         direction="row"
         justifyContent="center"
