@@ -28,6 +28,10 @@ import {
   setIsClickedFalse,
   setStartTrue,
   setStartFalse,
+  setMainTrue,
+  setMainFalse,
+  setFinishTrue,
+  setFinishFalse,
 } from "./features/utils/utilsSlice";
 
 import Answers from "./components/answers/Answers";
@@ -46,7 +50,9 @@ function App() {
     (store) => store.options
   );
   const { currentQuestion } = useSelector((store) => store.score);
-  const { isClicked, start } = useSelector((store) => store.utils);
+  const { isClicked, start, main, finish } = useSelector(
+    (store) => store.utils
+  );
 
   const [slicedItemsFromData, setSlicedItemsFromData] = useState([]);
   let questionItself = !flip
@@ -65,10 +71,6 @@ function App() {
     ],
   });
 
-  // const [start, setStart] = useState(true);
-  const [main, setMain] = useState(false);
-  const [finish, setFinish] = useState(false);
-
   // Standart function for a random number
   function getRandom(a) {
     const randomNumber = Math.floor(Math.random() * a);
@@ -81,8 +83,8 @@ function App() {
     if (currentQuestion === numberOfQuestions && main) {
       setTimeout(() => {
         dispatch(clearCurrentQuestion());
-        setMain(false);
-        setFinish(true);
+        dispatch(setMainFalse());
+        dispatch(setFinishTrue());
       }, 350);
 
       return;
@@ -180,7 +182,7 @@ function App() {
 
   function startQuiz() {
     dispatch(setStartFalse());
-    setMain(true);
+    dispatch(setMainTrue());
     mainAction();
   }
 
@@ -193,17 +195,17 @@ function App() {
     dispatch(clearWrongAnswer());
     dispatch(clearScore());
     dispatch(setNumberOfQuestions(10));
-    setFinish(false);
+    dispatch(setFinishFalse());
     dispatch(setStartTrue());
-    setMain(false);
+    dispatch(setMainFalse());
   }
 
   function playAgain() {
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
     dispatch(clearScore());
-    setFinish(false);
-    setMain(true);
+    dispatch(setFinishFalse());
+    dispatch(setMainTrue());
     mainAction();
   }
 
@@ -221,13 +223,9 @@ function App() {
         {main && (
           <>
             <Question question={question} />
-
             <Answers question={question} answerClicked={answerClicked} />
-
             <br />
-
             <Counter />
-
             <Buttons startAgain={startAgain} />
           </>
         )}
