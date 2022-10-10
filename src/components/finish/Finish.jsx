@@ -13,7 +13,7 @@ const Finish = ({ playAgain, startAgain }) => {
   return (
     <div>
       <Typography variant="h1">Finish!</Typography>
-      <Typography variant="h4">
+      <Typography variant="h5">
         {rightAnswer} out of {numberOfQuestions} questions correct.
       
       {ironMan && (

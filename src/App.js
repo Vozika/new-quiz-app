@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./App.css";
 import initialData from "./id_data";
 
@@ -55,7 +55,14 @@ function App() {
     (store) => store.utils
   );
 
-  let slicedItemsFromData = [];
+  if (!localStorage.getItem("ironManStreak")) {
+    localStorage.setItem("ironManStreak", 0);
+  }
+
+  let slicedItemsFromData = useMemo(() => {
+    return [];
+  }, []);
+  let testItem = 5;
 
   let questionItself = !flip
     ? "What is the capital of"
@@ -174,7 +181,10 @@ function App() {
         dispatch(setRightAnswer());
       } else {
         if (ironMan) {
-          localStorage.setItem("ironManStreak", JSON.stringify(currentQuestion - 1));
+          if (currentQuestion - 1 > localStorage.getItem("ironManStreak")) {
+            localStorage.setItem("ironManStreak", currentQuestion - 1);
+          }
+
           setTimeout(() => {
             theEnd();
           }, 350);
@@ -216,7 +226,7 @@ function App() {
 
   function playAgain() {
     if (ironMan) {
-      slicedItemsFromData = [];
+      slicedItemsFromData.length = 0;
     }
 
     dispatch(clearRightAnswer());
@@ -227,6 +237,8 @@ function App() {
     mainAction();
   }
 
+  console.log(slicedItemsFromData);
+
   return (
     <div className="App">
       <div className="container">
@@ -235,6 +247,7 @@ function App() {
             Data={Data}
             slicedItemsFromData={slicedItemsFromData}
             startQuiz={startQuiz}
+            testItem={testItem}
           />
         )}
 

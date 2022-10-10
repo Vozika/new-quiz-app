@@ -3,17 +3,18 @@ import Button from "@mui/material/Button";
 
 import { useSelector } from "react-redux";
 
-const Answers = (props) => {
+const Answers = ({ question, answerClicked }) => {
   const { lessAnswers, flip } = useSelector((store) => store.options);
   const { isClicked } = useSelector((store) => store.utils);
   const questionSubject = flip ? "country" : "capital";
 
   return !lessAnswers ? (
     <div>
-      {props.question.answers.map((answer) => {
+      {question.answers.map((answer) => {
         return (
           <>
             <Button
+              key={answer.id}
               variant="contained"
               color={
                 isClicked && answer.isCorrect
@@ -24,7 +25,7 @@ const Answers = (props) => {
               }
               onClick={() => {
                 answer.color = true;
-                props.answerClicked(answer.isCorrect);
+                answerClicked(answer.isCorrect);
               }}
               sx={{
                 width: 300,
@@ -33,7 +34,6 @@ const Answers = (props) => {
                 fontSize: 16,
                 lineHeight: "normal",
               }}
-              key={answer.id}
             >
               {answer[questionSubject]}
             </Button>
@@ -43,11 +43,12 @@ const Answers = (props) => {
     </div>
   ) : (
     <div>
-      {props.question.answers.map((answer) => {
+      {question.answers.map((answer) => {
         return (
           !answer.toHide && (
             <>
               <Button
+                key={answer.id}
                 variant="contained"
                 color={
                   isClicked && answer.isCorrect
@@ -58,9 +59,8 @@ const Answers = (props) => {
                 }
                 onClick={() => {
                   answer.color = true;
-                  props.answerClicked(answer.isCorrect);
+                  answerClicked(answer.isCorrect);
                 }}
-                key={answer.id}
                 disabled={false}
                 sx={{
                   width: 300,

@@ -44,14 +44,18 @@ const style = {
   p: 3,
 };
 
-const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
+const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
   const { ironManModal } = useSelector((store) => store.options);
 
+  function sliced() {
+    slicedItemsFromData.length = 0;
+  }
+
   return (
     <div>
-      <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)" }}>
+      <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)", marginBottom: 3 }}>
         Capital Quiz 2.0
       </Typography>
 
@@ -124,7 +128,8 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           label={Data.length}
                           onChange={() => {
                             dispatch(setNumberOfQuestions(Data.length));
-                            slicedItemsFromData = [];
+                            sliced();
+                            console.log(slicedItemsFromData);
                           }}
                         />
                         <FormControlLabel
@@ -212,19 +217,19 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
               <Fade in={open}>
                 <Box sx={style}>
                   <Typography variant="h2">Iron Man Mode</Typography>
-                  <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
+                  <Typography sx={{ fontSize: "1.3rem", margin: 2}}>
                     195 questions. 50/50 doesn't work. One wrong answer and you
                     lose. How long can you stand?
                   </Typography>
                   <Button
                     variant="contained"
                     size="large"
-                    sx={{ height: 60, fontSize: 18, marginTop: 2 }}
+                    sx={{ height: 60, fontSize: 16, marginTop: 0 }}
                     onClick={() => {
                       dispatch(setIronManTrue());
                       dispatch(setNumberOfQuestions(Data.length));
                       dispatch(setShow5050False());
-                      slicedItemsFromData = [];
+                      sliced();
                       startQuiz();
                     }}
                   >
@@ -240,13 +245,12 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
       <Stack
         direction="row"
         justifyContent="center"
-        alignItems="baseline"
+        alignItems="center"
         spacing={1}
       >
         <Button
           variant="contained"
-          size="large"
-          sx={{ height: 60, fontSize: 16, marginTop: 2, lineHeight: "normal" }}
+          sx={{ width: "50%", height: 60, fontSize: 16, lineHeight: "normal" }}
           onClick={startQuiz}
         >
           Normal Quiz
@@ -254,8 +258,14 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
 
         <Button
           variant="contained"
-          size="large"
-          sx={{ height: 60, fontSize: 16, marginTop: 2, lineHeight: "normal", backgroundColor: "gray", "&:hover": {backgroundColor: "black"} }}
+          sx={{
+            width: "50%", 
+            height: 60,
+            fontSize: 16,
+            lineHeight: "normal",
+            backgroundColor: "gray",
+            "&:hover": { backgroundColor: "black" },
+          }}
           onClick={() => {
             dispatch(setIronManModalTrue());
             dispatch(handleOpen());
