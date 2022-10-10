@@ -9,6 +9,7 @@ import {
   setIronManTrue,
   setIronManModalTrue,
   setIronManModalFalse,
+  setHideLetters,
 } from "../../features/options/optionsSlice";
 
 import Typography from "@mui/material/Typography";
@@ -24,6 +25,7 @@ import FormLabel from "@mui/material/FormLabel";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import SettingsIcon from "@mui/icons-material/Settings";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -44,7 +46,7 @@ const style = {
   p: 3,
 };
 
-const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
+const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
   const { ironManModal } = useSelector((store) => store.options);
@@ -55,7 +57,10 @@ const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
 
   return (
     <div>
-      <Typography variant="h1" sx={{ fontSize: "calc(3vw + 30px)", marginBottom: 3 }}>
+      <Typography
+        variant="h1"
+        sx={{ fontSize: "calc(3vw + 30px)", marginBottom: 3 }}
+      >
         Capital Quiz 2.0
       </Typography>
 
@@ -77,22 +82,35 @@ const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
           {!ironManModal && (
             <Fade in={open}>
               <Box sx={style}>
-                <Card sx={{ margin: 2 }}>
-                  <CardHeader
-                    sx={{
-                      fontSize: "1.3rem",
-                      bgcolor: "#bdbdbd",
-                      margin: 0,
-                      textAlign: "left",
-                    }}
-                    disableTypography
-                    title="OPTIONS"
-                    avatar={
-                      <Avatar sx={{ bgcolor: "#dd3131" }} aria-label="options">
-                        <SettingsIcon />
-                      </Avatar>
-                    }
-                  ></CardHeader>
+                <Card sx={{ margin: 1 }}>
+                  <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={0}
+                  sx={{width: "100%", bgcolor: "#bdbdbd",}}
+                  >
+                    <CardHeader
+                      sx={{
+                        fontSize: "1.3rem",
+                        margin: 0,
+                        textAlign: "left",
+                      }}
+                      
+                      disableTypography
+                      title="OPTIONS"
+                      avatar={
+                        <Avatar
+                          sx={{ bgcolor: "#dd3131" }}
+                          aria-label="options"
+                        >
+                          <SettingsIcon />
+                        </Avatar>
+                      }
+                    ></CardHeader>
+                    <CancelIcon sx={{marginRight: 2}} onClick={() => dispatch(handleClose())}/>
+                  </Stack>
+
                   <CardContent>
                     <FormControl sx={{ margin: 0 }}>
                       <FormLabel
@@ -195,7 +213,27 @@ const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
                         onChange={() => dispatch(setShow5050())}
                       />
                       <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                        Let us give you a little help.
+                        Let us give you a little help. 2 answers instead of 4.
+                      </Typography>
+
+                      <Divider sx={{ margin: "0.7em 0" }} />
+
+                      <FormControlLabel
+                        sx={{
+                          margin: 0,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          fontSize: "1.3rem",
+                          fontWeight: "bold",
+                        }}
+                        disableTypography
+                        control={<Checkbox />}
+                        label="Hide letters"
+                        onChange={() => dispatch(setHideLetters())}
+                      />
+                      <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
+                        Some like it hot. You see only the first and the last
+                        letter.
                       </Typography>
                     </FormControl>
                   </CardContent>
@@ -217,7 +255,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
               <Fade in={open}>
                 <Box sx={style}>
                   <Typography variant="h2">Iron Man Mode</Typography>
-                  <Typography sx={{ fontSize: "1.3rem", margin: 2}}>
+                  <Typography sx={{ fontSize: "1.3rem", margin: 2 }}>
                     195 questions. 50/50 doesn't work. One wrong answer and you
                     lose. How long can you stand?
                   </Typography>
@@ -259,7 +297,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz, testItem }) => {
         <Button
           variant="contained"
           sx={{
-            width: "50%", 
+            width: "50%",
             height: 60,
             fontSize: 16,
             lineHeight: "normal",

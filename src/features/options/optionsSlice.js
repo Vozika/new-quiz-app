@@ -8,6 +8,7 @@ const initialState = {
   numberOfAnswers: 4,
   ironMan: false,
   ironManModal: false,
+  hideLetters: false,
 };
 
 const optionsSlice = createSlice({
@@ -47,6 +48,12 @@ const optionsSlice = createSlice({
     setIronManModalFalse: (state) => {
       state.ironManModal = false;
     },
+    setHideLetters: (state) => {
+      state.hideLetters = !state.hideLetters;
+    },
+    setHideLettersFalse: (state) => {
+      state.hideLetters = false;
+    }
   },
 });
 
@@ -61,7 +68,9 @@ export const {
   setIronManTrue,
   setIronManFalse,
   setIronManModalTrue,
-  setIronManModalFalse
+  setIronManModalFalse,
+  setHideLetters,
+  setHideLettersFalse
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

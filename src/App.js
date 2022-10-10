@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 import initialData from "./id_data";
 
@@ -9,6 +9,7 @@ import {
   setFlipFalse,
   setNumberOfQuestions,
   setIronManFalse,
+  setHideLettersFalse,
 } from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
 import {
@@ -62,7 +63,6 @@ function App() {
   let slicedItemsFromData = useMemo(() => {
     return [];
   }, []);
-  let testItem = 5;
 
   let questionItself = !flip
     ? "What is the capital of"
@@ -98,9 +98,13 @@ function App() {
     if (currentQuestion === numberOfQuestions && main) {
       setTimeout(() => {
         theEnd();
-      }, 350);
+      }, 450);
 
       return;
+    }
+
+    if (slicedItemsFromData.length === Data.length) {
+      slicedItemsFromData.length = 0;
     }
 
     dispatch(setShowFadeTrue());
@@ -161,6 +165,8 @@ function App() {
       return 0.5 - Math.random();
     });
 
+    console.log(answers)
+
     //Adding everything to a state object
     setQuestion((prevQuestion) => ({
       ...prevQuestion,
@@ -168,14 +174,11 @@ function App() {
       item: questionItem[questionSubject],
       answers: answers,
     }));
-
-    if (slicedItemsFromData.length === Data.length) {
-      slicedItemsFromData = [];
-    }
   }
 
   function answerClicked(isCorrect) {
     if (!isClicked) {
+      
       if (isCorrect) {
         dispatch(setScore());
         dispatch(setRightAnswer());
@@ -187,7 +190,7 @@ function App() {
 
           setTimeout(() => {
             theEnd();
-          }, 350);
+          }, 450);
 
           return;
         }
@@ -197,7 +200,7 @@ function App() {
       dispatch(setShowFadeFalse());
       setTimeout(() => {
         mainAction();
-      }, 700);
+      }, 900);
     }
 
     dispatch(setIsClickedTrue());
@@ -213,6 +216,7 @@ function App() {
     dispatch(setIronManFalse());
     dispatch(setFlipFalse());
     dispatch(setShow5050False());
+    dispatch(setHideLettersFalse());
     dispatch(handleClose());
     dispatch(clearCurrentQuestion());
     dispatch(clearRightAnswer());
@@ -247,7 +251,6 @@ function App() {
             Data={Data}
             slicedItemsFromData={slicedItemsFromData}
             startQuiz={startQuiz}
-            testItem={testItem}
           />
         )}
 

@@ -4,13 +4,23 @@ import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 
 const Answers = ({ question, answerClicked }) => {
-  const { lessAnswers, flip } = useSelector((store) => store.options);
+  const { lessAnswers, flip, hideLetters } = useSelector(
+    (store) => store.options
+  );
   const { isClicked } = useSelector((store) => store.utils);
   const questionSubject = flip ? "country" : "capital";
 
   return !lessAnswers ? (
     <div>
       {question.answers.map((answer) => {
+        const result = !hideLetters
+          ? answer[questionSubject]
+          : hideLetters && answer.isCorrect && isClicked
+          ? answer[questionSubject]
+          : answer[questionSubject][0] +
+            "*".repeat(answer[questionSubject].length - 2) +
+            answer[questionSubject].slice(-1);
+
         return (
           <>
             <Button
@@ -26,6 +36,7 @@ const Answers = ({ question, answerClicked }) => {
               onClick={() => {
                 answer.color = true;
                 answerClicked(answer.isCorrect);
+                console.log(answer.capital.length);
               }}
               sx={{
                 width: 300,
@@ -33,9 +44,10 @@ const Answers = ({ question, answerClicked }) => {
                 margin: 0.5,
                 fontSize: 16,
                 lineHeight: "normal",
+                letterSpacing: 1.5,
               }}
             >
-              {answer[questionSubject]}
+              {result}
             </Button>
           </>
         );
@@ -44,6 +56,14 @@ const Answers = ({ question, answerClicked }) => {
   ) : (
     <div>
       {question.answers.map((answer) => {
+        const result = !hideLetters
+          ? answer[questionSubject]
+          : hideLetters && answer.isCorrect && isClicked
+          ? answer[questionSubject]
+          : answer[questionSubject][0] +
+            "*".repeat(answer[questionSubject].length - 2) +
+            answer[questionSubject].slice(-1);
+            
         return (
           !answer.toHide && (
             <>
@@ -68,9 +88,10 @@ const Answers = ({ question, answerClicked }) => {
                   margin: 0.5,
                   fontSize: 16,
                   lineHeight: "normal",
+                  letterSpacing: 1.5,
                 }}
               >
-                {answer[questionSubject]}
+                {result}
               </Button>
             </>
           )
