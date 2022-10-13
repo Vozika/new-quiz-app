@@ -89,6 +89,7 @@ function App() {
   let answers = [];
 
   function theEnd() {
+    dispatch(setShowFadeTrue());
     dispatch(clearCurrentQuestion());
     dispatch(setMainFalse());
     dispatch(setFinishTrue());
@@ -165,8 +166,6 @@ function App() {
       return 0.5 - Math.random();
     });
 
-    console.log(answers)
-
     //Adding everything to a state object
     setQuestion((prevQuestion) => ({
       ...prevQuestion,
@@ -178,7 +177,6 @@ function App() {
 
   function answerClicked(isCorrect) {
     if (!isClicked) {
-      
       if (isCorrect) {
         dispatch(setScore());
         dispatch(setRightAnswer());
@@ -190,9 +188,9 @@ function App() {
 
           setTimeout(() => {
             theEnd();
-          }, 450);
+          }, 900);
 
-          return;
+          // return;
         }
         dispatch(setWrongAnswer());
       }
@@ -207,6 +205,7 @@ function App() {
   }
 
   function startQuiz() {
+    dispatch(setShowFadeTrue());
     dispatch(setStartFalse());
     dispatch(setMainTrue());
     mainAction();
@@ -214,6 +213,7 @@ function App() {
 
   function startAgain() {
     dispatch(setIronManFalse());
+    dispatch(setShowFadeTrue());
     dispatch(setFlipFalse());
     dispatch(setShow5050False());
     dispatch(setHideLettersFalse());
@@ -233,6 +233,7 @@ function App() {
       slicedItemsFromData.length = 0;
     }
 
+    dispatch(setShowFadeTrue());
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
     dispatch(clearScore());

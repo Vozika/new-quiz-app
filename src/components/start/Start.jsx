@@ -84,11 +84,11 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
               <Box sx={style}>
                 <Card sx={{ margin: 1 }}>
                   <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  spacing={0}
-                  sx={{width: "100%", bgcolor: "#bdbdbd",}}
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={0}
+                    sx={{ width: "100%", bgcolor: "#bdbdbd" }}
                   >
                     <CardHeader
                       sx={{
@@ -96,7 +96,6 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         margin: 0,
                         textAlign: "left",
                       }}
-                      
                       disableTypography
                       title="OPTIONS"
                       avatar={
@@ -108,7 +107,10 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         </Avatar>
                       }
                     ></CardHeader>
-                    <CancelIcon sx={{marginRight: 2}} onClick={() => dispatch(handleClose())}/>
+                    <CancelIcon
+                      sx={{ marginRight: 2 }}
+                      onClick={() => dispatch(handleClose())}
+                    />
                   </Stack>
 
                   <CardContent>

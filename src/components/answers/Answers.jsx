@@ -13,16 +13,48 @@ const Answers = ({ question, answerClicked }) => {
   return !lessAnswers ? (
     <div>
       {question.answers.map((answer) => {
-        const result = !hideLetters
-          ? answer[questionSubject]
-          : hideLetters && answer.isCorrect && isClicked
-          ? answer[questionSubject]
-          : answer[questionSubject][0] +
-            "*".repeat(answer[questionSubject].length - 2) +
-            answer[questionSubject].slice(-1);
-
+        const buttonText = answer[questionSubject];
         return (
-          <>
+          <Button
+            key={answer.id}
+            variant="contained"
+            color={
+              isClicked && answer.isCorrect
+                ? "success"
+                : isClicked && !answer.isCorrect && answer.color
+                ? "error"
+                : "primary"
+            }
+            onClick={() => {
+              answer.color = true;
+              answerClicked(answer.isCorrect);
+            }}
+            sx={{
+              width: 300,
+              height: 60,
+              margin: 0.5,
+              fontSize: 16,
+              lineHeight: "normal",
+              letterSpacing: 1.5,
+            }}
+          >
+            {!hideLetters
+              ? buttonText
+              : hideLetters && answer.isCorrect && isClicked
+              ? buttonText
+              : buttonText[0] +
+                "*".repeat(buttonText.length - 2) +
+                buttonText.slice(-1)}
+          </Button>
+        );
+      })}
+    </div>
+  ) : (
+    <div>
+      {question.answers.map((answer) => {
+        const buttonText = answer[questionSubject];
+        return (
+          !answer.toHide && (
             <Button
               key={answer.id}
               variant="contained"
@@ -36,8 +68,8 @@ const Answers = ({ question, answerClicked }) => {
               onClick={() => {
                 answer.color = true;
                 answerClicked(answer.isCorrect);
-                console.log(answer.capital.length);
               }}
+              disabled={false}
               sx={{
                 width: 300,
                 height: 60,
@@ -47,53 +79,14 @@ const Answers = ({ question, answerClicked }) => {
                 letterSpacing: 1.5,
               }}
             >
-              {result}
+              {!hideLetters
+                ? buttonText
+                : hideLetters && answer.isCorrect && isClicked
+                ? buttonText
+                : buttonText[0] +
+                  "*".repeat(buttonText.length - 2) +
+                  buttonText.slice(-1)}
             </Button>
-          </>
-        );
-      })}
-    </div>
-  ) : (
-    <div>
-      {question.answers.map((answer) => {
-        const result = !hideLetters
-          ? answer[questionSubject]
-          : hideLetters && answer.isCorrect && isClicked
-          ? answer[questionSubject]
-          : answer[questionSubject][0] +
-            "*".repeat(answer[questionSubject].length - 2) +
-            answer[questionSubject].slice(-1);
-            
-        return (
-          !answer.toHide && (
-            <>
-              <Button
-                key={answer.id}
-                variant="contained"
-                color={
-                  isClicked && answer.isCorrect
-                    ? "success"
-                    : isClicked && !answer.isCorrect && answer.color
-                    ? "error"
-                    : "primary"
-                }
-                onClick={() => {
-                  answer.color = true;
-                  answerClicked(answer.isCorrect);
-                }}
-                disabled={false}
-                sx={{
-                  width: 300,
-                  height: 60,
-                  margin: 0.5,
-                  fontSize: 16,
-                  lineHeight: "normal",
-                  letterSpacing: 1.5,
-                }}
-              >
-                {result}
-              </Button>
-            </>
           )
         );
       })}
