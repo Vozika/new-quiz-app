@@ -242,8 +242,6 @@ function App() {
     mainAction();
   }
 
-  console.log(slicedItemsFromData);
-
   return (
     <div className="App">
       <div className="container">

@@ -9,11 +9,23 @@ const Answers = ({ question, answerClicked }) => {
   );
   const { isClicked } = useSelector((store) => store.utils);
   const questionSubject = flip ? "country" : "capital";
+  const style = {
+    width: 300,
+    height: 60,
+    margin: 0.5,
+    fontSize: 16,
+    lineHeight: "normal",
+    letterSpacing: 1.5,
+  };
 
-  return !lessAnswers ? (
+  return (
     <div>
       {question.answers.map((answer) => {
         const buttonText = answer[questionSubject];
+        const hiddenButtonText =
+          buttonText[0] +
+          "*".repeat(buttonText.length - 2) +
+          buttonText.slice(-1);
         return (
           <Button
             key={answer.id}
@@ -30,64 +42,16 @@ const Answers = ({ question, answerClicked }) => {
               answerClicked(answer.isCorrect);
             }}
             sx={{
-              width: 300,
-              height: 60,
-              margin: 0.5,
-              fontSize: 16,
-              lineHeight: "normal",
-              letterSpacing: 1.5,
+              ...style,
+              display: answer.toHide && lessAnswers ? "none" : "inline",
             }}
           >
             {!hideLetters
               ? buttonText
               : hideLetters && answer.isCorrect && isClicked
               ? buttonText
-              : buttonText[0] +
-                "*".repeat(buttonText.length - 2) +
-                buttonText.slice(-1)}
+              : hiddenButtonText}
           </Button>
-        );
-      })}
-    </div>
-  ) : (
-    <div>
-      {question.answers.map((answer) => {
-        const buttonText = answer[questionSubject];
-        return (
-          !answer.toHide && (
-            <Button
-              key={answer.id}
-              variant="contained"
-              color={
-                isClicked && answer.isCorrect
-                  ? "success"
-                  : isClicked && !answer.isCorrect && answer.color
-                  ? "error"
-                  : "primary"
-              }
-              onClick={() => {
-                answer.color = true;
-                answerClicked(answer.isCorrect);
-              }}
-              disabled={false}
-              sx={{
-                width: 300,
-                height: 60,
-                margin: 0.5,
-                fontSize: 16,
-                lineHeight: "normal",
-                letterSpacing: 1.5,
-              }}
-            >
-              {!hideLetters
-                ? buttonText
-                : hideLetters && answer.isCorrect && isClicked
-                ? buttonText
-                : buttonText[0] +
-                  "*".repeat(buttonText.length - 2) +
-                  buttonText.slice(-1)}
-            </Button>
-          )
         );
       })}
     </div>
