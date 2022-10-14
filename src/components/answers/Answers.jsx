@@ -24,7 +24,7 @@ const Answers = ({ question, answerClicked }) => {
         const buttonText = answer[questionSubject];
         const hiddenButtonText =
           buttonText[0] +
-          "*".repeat(buttonText.length - 2) +
+          buttonText.slice(1, buttonText.length - 1).replaceAll(/\S/g,"*") +
           buttonText.slice(-1);
         return (
           <Button
