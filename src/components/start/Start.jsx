@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleClose, handleOpen } from "../../features/modal/modalSlice";
 import {
@@ -10,6 +10,8 @@ import {
   setIronManModalTrue,
   setIronManModalFalse,
   setHideLetters,
+  setRU,
+  setInterfaceText,
 } from "../../features/options/optionsSlice";
 
 import Typography from "@mui/material/Typography";
@@ -34,6 +36,7 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 
 import { interfaceRU } from "../../interface";
+import { interfaceEN } from "../../interface";
 
 const style = {
   textAlign: "center",
@@ -48,25 +51,28 @@ const style = {
   p: 3,
 };
 
-let interfaceText = {
-  MAIN_TITLE: "Capital Quiz 2.0",
-  OPTIONS: "Options",
-  IRON_MAN_MODE: "Iron Man Mode",
-  NORMAL_QUIZ: "Normal Quiz",
-};
-
 const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
-  const { ironManModal } = useSelector((store) => store.options);
+  const { ironManModal, RU, interfaceText } = useSelector(
+    (store) => store.options
+  );
 
   function sliced() {
     slicedItemsFromData.length = 0;
   }
 
-  function changeLanguage() {
-    interfaceText = { ...interfaceRU };
-  }
+  useEffect(() => {
+    if (!RU) {
+      dispatch(setInterfaceText(interfaceEN));
+    }
+  }, [RU]);
+
+  useEffect(() => {
+    if (RU) {
+      dispatch(setInterfaceText(interfaceRU));
+    }
+  }, [RU]);
 
   return (
     <div>
@@ -110,7 +116,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         textAlign: "left",
                       }}
                       disableTypography
-                      title="OPTIONS"
+                      title={interfaceText.OPTIONS}
                       avatar={
                         <Avatar
                           sx={{ bgcolor: "#dd3131" }}
@@ -142,7 +148,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                             color: "black",
                           }}
                         >
-                          Number of questions
+                          {interfaceText.NUMBER_OF_QUESTIONS}
                         </Typography>
                       </FormLabel>
                       <RadioGroup
@@ -162,7 +168,6 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           onChange={() => {
                             dispatch(setNumberOfQuestions(Data.length));
                             sliced();
-                            console.log(slicedItemsFromData);
                           }}
                         />
                         <FormControlLabel
@@ -203,13 +208,13 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         }}
                         disableTypography
                         control={<Checkbox />}
-                        label="Flip the question"
+                        label={interfaceText.FLIP}
                         onChange={() => {
                           dispatch(setFlip());
                         }}
                       />
                       <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                        Now you know the capital. But what about the country?
+                        {interfaceText.FLIP_DESC}
                       </Typography>
 
                       <Divider sx={{ margin: "0.7em 0" }} />
@@ -224,11 +229,11 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         }}
                         disableTypography
                         control={<Checkbox />}
-                        label="Show 50/50"
+                        label={interfaceText.SHOW5050}
                         onChange={() => dispatch(setShow5050())}
                       />
                       <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                        Let us give you a little help. 2 answers instead of 4.
+                        {interfaceText.SHOW5050_DESC}
                       </Typography>
 
                       <Divider sx={{ margin: "0.7em 0" }} />
@@ -243,12 +248,11 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         }}
                         disableTypography
                         control={<Checkbox />}
-                        label="Hide letters"
+                        label={interfaceText.HIDE_LETTERS}
                         onChange={() => dispatch(setHideLetters())}
                       />
                       <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
-                        Some like it hot. You see only the first and the last
-                        letter.
+                        {interfaceText.HIDE_LETTERS_DESC}
                       </Typography>
                     </FormControl>
                   </CardContent>
@@ -259,7 +263,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                   sx={{ height: 60, fontSize: 18, marginTop: 2 }}
                   onClick={startQuiz}
                 >
-                  Start the Quiz!
+                  {interfaceText.START_QUIZ}
                 </Button>
               </Box>
             </Fade>
@@ -269,10 +273,11 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
             <>
               <Fade in={open}>
                 <Box sx={style}>
-                  <Typography variant="h2">Iron Man Mode</Typography>
+                  <Typography variant="h2">
+                    {interfaceText.IRON_MAN_MODE}
+                  </Typography>
                   <Typography sx={{ fontSize: "1.3rem", margin: 2 }}>
-                    195 questions. 50/50 doesn't work. One wrong answer and you
-                    lose. How long can you stand?
+                    {interfaceText.IRON_MAN_MODE_DESC}
                   </Typography>
                   <Button
                     variant="contained"
@@ -286,7 +291,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                       startQuiz();
                     }}
                   >
-                    I want to know
+                    {interfaceText.I_WANT_TO_KNOW}
                   </Button>
                 </Box>
               </Fade>
@@ -328,27 +333,34 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         </Button>
       </Stack>
       <br />
-      <Button
-        variant="outlined"
-        size="large"
-        sx={{ height: 60, fontSize: 16, marginTop: 2 }}
-        onClick={() => {
-          dispatch(setIronManModalFalse());
-          dispatch(handleOpen());
-        }}
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
       >
-        {interfaceText.OPTIONS}
-      </Button>
-      <Button
-        variant="outlined"
-        size="large"
-        sx={{ height: 60, fontSize: 16, marginTop: 2 }}
-        onClick={() => {
-          changeLanguage();
-        }}
-      >
-        Change Language
-      </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          sx={{ height: 60, fontSize: 16, marginTop: 0 }}
+          onClick={() => {
+            dispatch(setIronManModalFalse());
+            dispatch(handleOpen());
+          }}
+        >
+          {interfaceText.OPTIONS}
+        </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          sx={{ height: 60, fontSize: 16, marginTop: 0 }}
+          onClick={() => {
+            dispatch(setRU());
+          }}
+        >
+          {interfaceText.CHANGE_LANGUAGE}
+        </Button>
+      </Stack>
     </div>
   );
 };

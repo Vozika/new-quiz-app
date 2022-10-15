@@ -7,7 +7,7 @@ import { setLessAnswers } from "../../features/options/optionsSlice";
 
 const Buttons = ({ startAgain }) => {
   const dispatch = useDispatch();
-  const { show5050 } = useSelector((store) => store.options);
+  const { show5050, interfaceText } = useSelector((store) => store.options);
 
   return (
     <div>
@@ -27,7 +27,7 @@ const Buttons = ({ startAgain }) => {
               dispatch(setLessAnswers());
             }}
           >
-            50/50
+            {interfaceText.BUTTON_5050}
           </Button>
         )}
 
@@ -37,7 +37,7 @@ const Buttons = ({ startAgain }) => {
           sx={{ height: 60, fontSize: 16 }}
           onClick={startAgain}
         >
-          Back to Start
+          {interfaceText.BACK_TO_START}
         </Button>
       </Stack>
     </div>

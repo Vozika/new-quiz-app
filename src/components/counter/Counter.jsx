@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const Counter = () => {
   const { rightAnswer, wrongAnswer } = useSelector((store) => store.score);
+  const { interfaceText } = useSelector((store) => store.options);
 
   return (
     <div>
@@ -22,7 +23,7 @@ const Counter = () => {
           alignItems="center"
           spacing={2}
         >
-          <Typography variant="h5">Right</Typography>
+          <Typography variant="h5">{interfaceText.RIGHT}</Typography>
           <Avatar sx={{ width: 60, height: 60 }}>{rightAnswer}</Avatar>
         </Stack>
 
@@ -32,7 +33,7 @@ const Counter = () => {
           alignItems="center"
           spacing={2}
         >
-          <Typography variant="h5">Wrong</Typography>
+          <Typography variant="h5">{interfaceText.WRONG}</Typography>
           <Avatar sx={{ width: 60, height: 60 }}>{wrongAnswer}</Avatar>
         </Stack>
       </Stack>

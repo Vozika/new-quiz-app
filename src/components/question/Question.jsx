@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import { useSelector } from "react-redux";
 
 const Question = ({ question }) => {
-  const { numberOfQuestions, flip } = useSelector((store) => store.options);
+  const { numberOfQuestions, flip, interfaceText } = useSelector((store) => store.options);
   const { currentQuestion } = useSelector((store) => store.score);
   const { showFade } = useSelector((store) => store.utils);
 
@@ -15,7 +15,7 @@ const Question = ({ question }) => {
       <div>
         <Chip
           variant="outlined"
-          label={`${currentQuestion} out of ${numberOfQuestions}`}
+          label={`${currentQuestion} ${interfaceText.OUT_OF} ${numberOfQuestions}`}
           sx={{
             height: 40,
             width: 160,

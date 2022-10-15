@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { interfaceEN } from "../../interface";
 
 const initialState = {
   show5050: false,
@@ -9,6 +10,9 @@ const initialState = {
   ironMan: false,
   ironManModal: false,
   hideLetters: false,
+  interfaceText: { ...interfaceEN },
+  RU: false,
+  EN: true,
 };
 
 const optionsSlice = createSlice({
@@ -53,7 +57,19 @@ const optionsSlice = createSlice({
     },
     setHideLettersFalse: (state) => {
       state.hideLetters = false;
-    }
+    },
+    setInterfaceText: (state, lang) => {
+      state.interfaceText = lang.payload;
+    },
+    setRUTrue: (state) => {
+      state.RU = true;
+    },
+    setRUFalse: (state) => {
+      state.RU = false;
+    },
+    setRU: (state) => {
+      state.RU = !state.RU;
+    },
   },
 });
 
@@ -70,7 +86,11 @@ export const {
   setIronManModalTrue,
   setIronManModalFalse,
   setHideLetters,
-  setHideLettersFalse
+  setHideLettersFalse,
+  setRUTrue,
+  setRUFalse,
+  setRU,
+  setInterfaceText,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;
