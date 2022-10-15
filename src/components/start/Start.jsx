@@ -33,6 +33,8 @@ import Fade from "@mui/material/Fade";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 
+import { interfaceRU } from "../../interface";
+
 const style = {
   textAlign: "center",
   position: "absolute",
@@ -46,6 +48,13 @@ const style = {
   p: 3,
 };
 
+let interfaceText = {
+  MAIN_TITLE: "Capital Quiz 2.0",
+  OPTIONS: "Options",
+  IRON_MAN_MODE: "Iron Man Mode",
+  NORMAL_QUIZ: "Normal Quiz",
+};
+
 const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
@@ -55,13 +64,17 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
     slicedItemsFromData.length = 0;
   }
 
+  function changeLanguage() {
+    interfaceText = { ...interfaceRU };
+  }
+
   return (
     <div>
       <Typography
         variant="h1"
         sx={{ fontSize: "calc(3vw + 30px)", marginBottom: 3 }}
       >
-        Capital Quiz 2.0
+        {interfaceText.MAIN_TITLE}
       </Typography>
 
       <Modal
@@ -293,7 +306,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
           sx={{ width: "50%", height: 60, fontSize: 16, lineHeight: "normal" }}
           onClick={startQuiz}
         >
-          Normal Quiz
+          {interfaceText.NORMAL_QUIZ}
         </Button>
 
         <Button
@@ -311,7 +324,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
             dispatch(handleOpen());
           }}
         >
-          Iron Man Mode
+          {interfaceText.IRON_MAN_MODE}
         </Button>
       </Stack>
       <br />
@@ -324,7 +337,17 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
           dispatch(handleOpen());
         }}
       >
-        Options
+        {interfaceText.OPTIONS}
+      </Button>
+      <Button
+        variant="outlined"
+        size="large"
+        sx={{ height: 60, fontSize: 16, marginTop: 2 }}
+        onClick={() => {
+          changeLanguage();
+        }}
+      >
+        Change Language
       </Button>
     </div>
   );

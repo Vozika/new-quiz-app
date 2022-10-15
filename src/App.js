@@ -64,12 +64,12 @@ function App() {
     return [];
   }, []);
 
-  let questionItself = !flip
+  let questionText = !flip
     ? "What is the capital of"
     : "is the capital of which country?";
 
   const [question, setQuestion] = useState({
-    question: questionItself,
+    question: questionText,
     item: "",
     answers: [
       {
@@ -169,7 +169,7 @@ function App() {
     //Adding everything to a state object
     setQuestion((prevQuestion) => ({
       ...prevQuestion,
-      question: questionItself,
+      question: questionText,
       item: questionItem[questionSubject],
       answers: answers,
     }));
