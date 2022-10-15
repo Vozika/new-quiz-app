@@ -7,11 +7,13 @@ import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Avatar from "@mui/material/Avatar";
 
+export const longestStreak = localStorage.getItem("ironManStreak");
+
 const Finish = ({ playAgain, startAgain }) => {
-  const { numberOfQuestions, ironMan } = useSelector((store) => store.options);
+  const { numberOfQuestions, ironMan, interfaceText } = useSelector((store) => store.options);
   const { rightAnswer } = useSelector((store) => store.score);
   const { showFade } = useSelector((store) => store.utils);
-  const longestStreak = localStorage.getItem("ironManStreak");
+
   const perCent = Math.round((rightAnswer / numberOfQuestions) * 100);
 
   return (
@@ -45,11 +47,12 @@ const Finish = ({ playAgain, startAgain }) => {
       </Fade>
       <br />
       <Typography variant="h5">
-        {rightAnswer} out of {numberOfQuestions} questions correct.
+        {rightAnswer} {interfaceText.OUT_OF} {numberOfQuestions} {interfaceText.QUESTIONS_CORRECT}
         <br />
         {ironMan && (
           <>
-            Your longest Iron Man Mode win streak is {longestStreak} questions.
+            {/* Your longest Iron Man Mode win streak is {longestStreak} questions. */}
+            {interfaceText.LONGEST_STREAK}
           </>
         )}
       </Typography>
@@ -71,7 +74,7 @@ const Finish = ({ playAgain, startAgain }) => {
           }}
           onClick={playAgain}
         >
-          Play Again
+          {interfaceText.PLAY_AGAIN}
         </Button>
 
         <Button
@@ -84,7 +87,7 @@ const Finish = ({ playAgain, startAgain }) => {
           }}
           onClick={startAgain}
         >
-          Back to Start
+          {interfaceText.BACK_TO_START}
         </Button>
       </Stack>
     </div>
