@@ -341,8 +341,8 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
       >
         <Button
           variant="outlined"
-          size="large"
-          sx={{ height: 60, fontSize: 16, marginTop: 0 }}
+          
+          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "35%" }}
           onClick={() => {
             dispatch(setIronManModalFalse());
             dispatch(handleOpen());
@@ -352,8 +352,8 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         </Button>
         <Button
           variant="outlined"
-          size="large"
-          sx={{ height: 60, fontSize: 16, marginTop: 0 }}
+          
+          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "35%", lineHeight: "normal" }}
           onClick={() => {
             dispatch(setRU());
           }}
