@@ -24,7 +24,7 @@ const Counter = () => {
           spacing={2}
         >
           <Typography variant="h5">{interfaceText.RIGHT}</Typography>
-          <Avatar sx={{ width: 60, height: 60 }}>{rightAnswer}</Avatar>
+          <Avatar sx={{ width: 50, height: 50 }}>{rightAnswer}</Avatar>
         </Stack>
 
         <Stack
@@ -34,7 +34,7 @@ const Counter = () => {
           spacing={2}
         >
           <Typography variant="h5">{interfaceText.WRONG}</Typography>
-          <Avatar sx={{ width: 60, height: 60 }}>{wrongAnswer}</Avatar>
+          <Avatar sx={{ width: 50, height: 50 }}>{wrongAnswer}</Avatar>
         </Stack>
       </Stack>
     </div>

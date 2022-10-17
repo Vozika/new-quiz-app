@@ -7,10 +7,11 @@ import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Avatar from "@mui/material/Avatar";
 
-export const longestStreak = localStorage.getItem("ironManStreak");
-
 const Finish = ({ playAgain, startAgain }) => {
-  const { numberOfQuestions, ironMan, interfaceText } = useSelector((store) => store.options);
+  const longestStreak = localStorage.getItem("ironManStreak");
+  const { numberOfQuestions, ironMan, interfaceText } = useSelector(
+    (store) => store.options
+  );
   const { rightAnswer } = useSelector((store) => store.score);
   const { showFade } = useSelector((store) => store.utils);
 
@@ -47,22 +48,41 @@ const Finish = ({ playAgain, startAgain }) => {
       </Fade>
       <br />
       <Typography variant="h5">
-        {rightAnswer} {interfaceText.OUT_OF} {numberOfQuestions} {interfaceText.QUESTIONS_CORRECT}
+        {rightAnswer} {interfaceText.OUT_OF} {numberOfQuestions}{" "}
+        {interfaceText.QUESTIONS_CORRECT}
         <br />
         {ironMan && (
           <>
-            {/* Your longest Iron Man Mode win streak is {longestStreak} questions. */}
-            {interfaceText.LONGEST_STREAK}
+            {interfaceText.LONGEST_STREAK_001}
+            {longestStreak}
+            {interfaceText.LONGEST_STREAK_002}
           </>
         )}
       </Typography>
-      <br />
+
+      {ironMan && (
+        <Button
+          variant="outlined"
+          sx={{
+            width: "100%",
+            height: 60,
+            fontSize: 16,
+            lineHeight: "normal",
+            marginTop: 1,
+            marginBottom: 1,
+          }}
+          onClick={() => localStorage.clear()}
+        >
+          {interfaceText.CLEAR_STREAK}
+        </Button>
+      )}
+
       <Stack
         direction="row"
         justifyContent="center"
         alignItems="center"
         spacing={1}
-        sx={{ marginTop: 0 }}
+        sx={{ marginTop: 1 }}
       >
         <Button
           variant="contained"

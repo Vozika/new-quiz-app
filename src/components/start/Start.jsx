@@ -143,7 +143,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                             marginTop: 0,
                             justifyContent: "center",
                             alignItems: "center",
-                            fontSize: "1.3rem",
+                            fontSize: "1.2rem",
                             fontWeight: "bold",
                             color: "black",
                           }}
@@ -203,7 +203,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           margin: 0,
                           justifyContent: "center",
                           alignItems: "center",
-                          fontSize: "1.3rem",
+                          fontSize: "1.2rem",
                           fontWeight: "bold",
                         }}
                         disableTypography
@@ -213,7 +213,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           dispatch(setFlip());
                         }}
                       />
-                      <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
+                      <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
                         {interfaceText.FLIP_DESC}
                       </Typography>
 
@@ -224,7 +224,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           margin: 0,
                           justifyContent: "center",
                           alignItems: "center",
-                          fontSize: "1.3rem",
+                          fontSize: "1.2rem",
                           fontWeight: "bold",
                         }}
                         disableTypography
@@ -232,7 +232,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         label={interfaceText.SHOW5050}
                         onChange={() => dispatch(setShow5050())}
                       />
-                      <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
+                      <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
                         {interfaceText.SHOW5050_DESC}
                       </Typography>
 
@@ -243,7 +243,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                           margin: 0,
                           justifyContent: "center",
                           alignItems: "center",
-                          fontSize: "1.3rem",
+                          fontSize: "1.2rem",
                           fontWeight: "bold",
                         }}
                         disableTypography
@@ -251,7 +251,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                         label={interfaceText.HIDE_LETTERS}
                         onChange={() => dispatch(setHideLetters())}
                       />
-                      <Typography sx={{ fontSize: "1.3rem", marginBottom: 0 }}>
+                      <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
                         {interfaceText.HIDE_LETTERS_DESC}
                       </Typography>
                     </FormControl>
@@ -276,7 +276,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                   <Typography variant="h2">
                     {interfaceText.IRON_MAN_MODE}
                   </Typography>
-                  <Typography sx={{ fontSize: "1.3rem", margin: 2 }}>
+                  <Typography sx={{ fontSize: "1rem", margin: 2 }}>
                     {interfaceText.IRON_MAN_MODE_DESC}
                   </Typography>
                   <Button

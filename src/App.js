@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 import initialData from "./id_data";
 import initialDataRU from "./id_data_ru";
@@ -44,11 +44,15 @@ import Counter from "./components/counter/Counter";
 import Question from "./components/question/Question";
 import Buttons from "./components/buttons/Buttons";
 
-// const Data = initialData.map((item) => ({ ...item }));
-
 function App() {
   const dispatch = useDispatch();
   let Data = [];
+  let questionText = "";
+  if (!localStorage.getItem("ironManStreak")) {
+    localStorage.setItem("ironManStreak", 0);
+  }
+
+  console.log(localStorage);
 
   const { flip, numberOfQuestions, numberOfAnswers, ironMan, RU } = useSelector(
     (store) => store.options
@@ -60,33 +64,21 @@ function App() {
 
   if (!RU) {
     Data = initialData.map((item) => ({ ...item }));
-  }
-
-  if (RU) {
-    Data = initialDataRU.map((item) => ({ ...item }));
-  }
-
-  if (!localStorage.getItem("ironManStreak")) {
-    localStorage.setItem("ironManStreak", 0);
-  }
-
-  let slicedItemsFromData = useMemo(() => {
-    return [];
-  }, []);
-
-  let questionText = "";
-
-  if (!RU) {
     questionText = !flip
       ? "What is the capital of"
       : "is the capital of which country?";
   }
 
   if (RU) {
+    Data = initialDataRU.map((item) => ({ ...item }));
     questionText = !flip
       ? "Какая столица этой страны: "
       : "столица какой страны?";
   }
+
+  let slicedItemsFromData = useMemo(() => {
+    return [];
+  }, []);
 
   const [question, setQuestion] = useState({
     question: questionText,
@@ -252,7 +244,7 @@ function App() {
     if (ironMan) {
       slicedItemsFromData.length = 0;
     }
-
+    dispatch(clearCurrentQuestion());
     dispatch(setShowFadeTrue());
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());

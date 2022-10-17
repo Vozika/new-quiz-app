@@ -210,7 +210,7 @@ const initialDataRU = [
         id: 41
     },
     {
-        country: "Cyprus",
+        country: "Кипр",
         capital: "Южная Никосия",
         id: 42
     },
@@ -535,8 +535,8 @@ const initialDataRU = [
         id: 106
     },
     {
-        country: "Мартиника",
-        capital: "Форт-Де-Франс",
+        country: "Демократическая Республика Конго",
+        capital: "Киншаса",
         id: 107
     },
     {
@@ -550,8 +550,8 @@ const initialDataRU = [
         id: 109
     },
     {
-        country: "Майотта",
-        capital: "Мамуцу",
+        country: "Восточный Тимор",
+        capital: "Дили",
         id: 110
     },
     {

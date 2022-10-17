@@ -1,5 +1,3 @@
-const longestStreak = localStorage.getItem("ironManStreak");
-
 export const interfaceEN = {
   MAIN_TITLE: "Capital Quiz 2.0",
   OPTIONS: "Options",
@@ -22,8 +20,10 @@ export const interfaceEN = {
   OUT_OF: "out of",
   BACK_TO_START: "Back to Start",
   PLAY_AGAIN: "Play Again",
-  LONGEST_STREAK: "Your longest Iron Man Mode win streak is " + longestStreak + " questions.",
+  LONGEST_STREAK_001: "Your longest Iron Man Mode win streak is ",
+  LONGEST_STREAK_002: " questions.",
   QUESTIONS_CORRECT: "questions correct.",
+  CLEAR_STREAK: "Clear Streak",
 };
 
 export const interfaceRU = {
@@ -48,6 +48,8 @@ export const interfaceRU = {
   OUT_OF: "из",
   BACK_TO_START: "Назад",
   PLAY_AGAIN: "Ещё раз",
-  LONGEST_STREAK: "Ваше наибольшее количество верных ответов: " + longestStreak + ".",
+  LONGEST_STREAK_001: "Ваше наибольшее количество верных ответов: ",
+  LONGEST_STREAK_002: ".",
   QUESTIONS_CORRECT: "правильно.",
+  CLEAR_STREAK: "Очистить запись",
 };

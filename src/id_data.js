@@ -426,7 +426,7 @@ const initialData = [
     },
     {
         country: "Kazakhstan",
-        capital: "Nur-Sultan",
+        capital: "Astana",
         id: 85
     },
     {
@@ -535,8 +535,8 @@ const initialData = [
         id: 106
     },
     {
-        country: "Martinique",
-        capital: "Fort-de-France",
+        country: "Democratic Republic of the Congo",
+        capital: "Kinshasa",
         id: 107
     },
     {
@@ -550,8 +550,8 @@ const initialData = [
         id: 109
     },
     {
-        country: "Mayotte",
-        capital: "Mamoutzou",
+        country: "East Timor",
+        capital: "Dili",
         id: 110
     },
     {

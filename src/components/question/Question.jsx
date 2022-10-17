@@ -6,7 +6,9 @@ import Fade from "@mui/material/Fade";
 import { useSelector } from "react-redux";
 
 const Question = ({ question }) => {
-  const { numberOfQuestions, flip, interfaceText } = useSelector((store) => store.options);
+  const { numberOfQuestions, flip, interfaceText } = useSelector(
+    (store) => store.options
+  );
   const { currentQuestion } = useSelector((store) => store.score);
   const { showFade } = useSelector((store) => store.utils);
 
@@ -39,7 +41,13 @@ const Question = ({ question }) => {
           <Typography
             variant="h1"
             color="primary"
-            sx={{ marginBottom: "0.2em", fontSize: "calc(3vw + 30px)" }}
+            sx={{
+              marginBottom: "0.2em",
+              fontSize:
+                question.item === "Центральноафриканская Республика"
+                  ? "28px"
+                  : "calc(2.5vw + 30px)",
+            }}
           >
             <div>{question.item}?</div>
           </Typography>
@@ -54,7 +62,7 @@ const Question = ({ question }) => {
           label={`${currentQuestion} out of ${numberOfQuestions}`}
           sx={{
             height: 40,
-            width: 140,
+            width: 160,
             fontSize: 18,
             borderRadius: 40,
           }}
