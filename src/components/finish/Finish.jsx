@@ -8,7 +8,7 @@ import Fade from "@mui/material/Fade";
 import Avatar from "@mui/material/Avatar";
 
 const Finish = ({ playAgain, startAgain }) => {
-  const longestStreak = localStorage.getItem("ironManStreak");
+  // let longestStreak = localStorage.getItem("ironManStreak");
   const { numberOfQuestions, ironMan, interfaceText } = useSelector(
     (store) => store.options
   );
@@ -54,13 +54,13 @@ const Finish = ({ playAgain, startAgain }) => {
         {ironMan && (
           <>
             {interfaceText.LONGEST_STREAK_001}
-            {longestStreak}
+            {localStorage.getItem("ironManStreak")}
             {interfaceText.LONGEST_STREAK_002}
           </>
         )}
       </Typography>
 
-      {ironMan && (
+      {/* {ironMan && (
         <Button
           variant="outlined"
           sx={{
@@ -71,12 +71,14 @@ const Finish = ({ playAgain, startAgain }) => {
             marginTop: 1,
             marginBottom: 1,
           }}
-          onClick={() => localStorage.clear()}
+          onClick={() => {
+            localStorage.clear();
+          }}
         >
           {interfaceText.CLEAR_STREAK}
         </Button>
-      )}
-
+      )} */}
+<br />
       <Stack
         direction="row"
         justifyContent="center"

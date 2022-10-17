@@ -24,6 +24,8 @@ export const interfaceEN = {
   LONGEST_STREAK_002: " questions.",
   QUESTIONS_CORRECT: "questions correct.",
   CLEAR_STREAK: "Clear Streak",
+  QUESTION_TEXT: "What is the capital of",
+  QUESTION_TEXT_FLIP: "is the capital of which country?"
 };
 
 export const interfaceRU = {
@@ -52,4 +54,6 @@ export const interfaceRU = {
   LONGEST_STREAK_002: ".",
   QUESTIONS_CORRECT: "правильно.",
   CLEAR_STREAK: "Очистить запись",
+  QUESTION_TEXT: "Какая столица этой страны:",
+  QUESTION_TEXT_FLIP: "столица какой страны?"
 };

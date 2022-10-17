@@ -3,6 +3,9 @@ import "./App.css";
 import initialData from "./id_data";
 import initialDataRU from "./id_data_ru";
 
+import { interfaceRU } from "./interface";
+import { interfaceEN } from "./interface";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   setShow5050False,
@@ -65,15 +68,15 @@ function App() {
   if (!RU) {
     Data = initialData.map((item) => ({ ...item }));
     questionText = !flip
-      ? "What is the capital of"
-      : "is the capital of which country?";
+      ? interfaceEN.QUESTION_TEXT
+      : interfaceEN.QUESTION_TEXT_FLIP;
   }
 
   if (RU) {
     Data = initialDataRU.map((item) => ({ ...item }));
     questionText = !flip
-      ? "Какая столица этой страны: "
-      : "столица какой страны?";
+      ? interfaceRU.QUESTION_TEXT
+      : interfaceRU.QUESTION_TEXT_FLIP;
   }
 
   let slicedItemsFromData = useMemo(() => {
