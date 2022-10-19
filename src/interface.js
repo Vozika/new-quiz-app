@@ -26,13 +26,17 @@ export const interfaceEN = {
   CLEAR_STREAK: "Clear Streak",
   QUESTION_TEXT: "What is the capital of",
   QUESTION_TEXT_FLIP: "is the capital of which country?",
-  STATISTICS: "Statistics"
+  STATISTICS: "Statistics",
+  All_TIME_RIGHT_ANSWERS: "All time right answers:",
+  All_TIME_WRONG_ANSWERS: "All time wrong answers:",
+  RIGHT_ANSWERS_ON_AVERAGE: "% right answers on average",
+  LONGEST_IRON_MAN: "Longest Iron Man win streak: "
 };
 
 export const interfaceRU = {
   MAIN_TITLE: "Столица Квиз 2.0",
   OPTIONS: "Настройки",
-  IRON_MAN_MODE: "Железный Человек",
+  IRON_MAN_MODE: "Железные Яйца",
   IRON_MAN_MODE_DESC: "195 вопросов. 50/50 не работает. Одна ошибка и проигрыш. Сколько сможете продержаться?",
   NORMAL_QUIZ: "Обычный Квиз",
   CHANGE_LANGUAGE: "Сменить Язык",
@@ -57,5 +61,9 @@ export const interfaceRU = {
   CLEAR_STREAK: "Очистить запись",
   QUESTION_TEXT: "Какая столица этой страны:",
   QUESTION_TEXT_FLIP: "столица какой страны?",
-  STATISTICS: "Статистика"
+  STATISTICS: "Статистика",
+  All_TIME_RIGHT_ANSWERS: "Верных ответов за всё время:",
+  All_TIME_WRONG_ANSWERS: "Неверных ответов за всё время:",
+  RIGHT_ANSWERS_ON_AVERAGE: "% верных ответов в среднем",
+  LONGEST_IRON_MAN: "Лучший результат Железных Яиц: "
 };
