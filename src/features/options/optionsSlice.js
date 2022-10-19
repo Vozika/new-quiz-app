@@ -13,6 +13,8 @@ const initialState = {
   interfaceText: { ...interfaceEN },
   RU: false,
   EN: true,
+  statistics: false,
+  options: false,
 };
 
 const optionsSlice = createSlice({
@@ -70,6 +72,18 @@ const optionsSlice = createSlice({
     setRU: (state) => {
       state.RU = !state.RU;
     },
+    setStatisticsTrue: (state) => {
+      state.statistics = true;
+    },
+    setStatisticsFalse: (state) => {
+      state.statistics = false;
+    },
+    setOptionsTrue: (state) => {
+      state.options = true;
+    },
+    setOptionsFalse: (state) => {
+      state.options = false;
+    }
   },
 });
 
@@ -91,6 +105,10 @@ export const {
   setRUFalse,
   setRU,
   setInterfaceText,
+  setStatisticsTrue,
+  setStatisticsFalse,
+  setOptionsTrue,
+  setOptionsFalse
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

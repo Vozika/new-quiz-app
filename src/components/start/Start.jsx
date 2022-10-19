@@ -12,6 +12,10 @@ import {
   setHideLetters,
   setRU,
   setInterfaceText,
+  setStatisticsTrue,
+  setStatisticsFalse,
+  setOptionsTrue,
+  setOptionsFalse,
 } from "../../features/options/optionsSlice";
 
 import Typography from "@mui/material/Typography";
@@ -54,7 +58,7 @@ const style = {
 const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
-  const { ironManModal, RU, interfaceText } = useSelector(
+  const { ironManModal, RU, interfaceText, statistics, options } = useSelector(
     (store) => store.options
   );
 
@@ -66,13 +70,13 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
     if (!RU) {
       dispatch(setInterfaceText(interfaceEN));
     }
-  }, [RU]);
+  });
 
   useEffect(() => {
     if (RU) {
       dispatch(setInterfaceText(interfaceRU));
     }
-  }, [RU]);
+  });
 
   return (
     <div>
@@ -90,6 +94,8 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         onClose={() => {
           dispatch(handleClose());
           dispatch(setIronManModalFalse());
+          dispatch(setStatisticsFalse());
+          dispatch(setOptionsFalse());
         }}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -98,7 +104,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         }}
       >
         <>
-          {!ironManModal && (
+          {options && (
             <Fade in={open}>
               <Box sx={style}>
                 <Card sx={{ margin: 1 }}>
@@ -128,7 +134,10 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                     ></CardHeader>
                     <CancelIcon
                       sx={{ marginRight: 2 }}
-                      onClick={() => dispatch(handleClose())}
+                      onClick={() => {
+                        dispatch(handleClose());
+                        dispatch(setOptionsFalse());
+                      }}
                     />
                   </Stack>
 
@@ -276,7 +285,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                   <Typography variant="h2">
                     {interfaceText.IRON_MAN_MODE}
                   </Typography>
-                  <Typography sx={{ fontSize: "1rem", margin: 2 }}>
+                  <Typography sx={{ fontSize: 20, margin: 2 }}>
                     {interfaceText.IRON_MAN_MODE_DESC}
                   </Typography>
                   <Button
@@ -296,6 +305,29 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                 </Box>
               </Fade>
             </>
+          )}
+
+          {statistics && (
+            <Fade in={open}>
+              <Box sx={style}>
+                <Typography variant="h2">Statistics</Typography>
+                <Typography sx={{fontSize: 20}}>
+                  All time right answers: {localStorage.rightAnswers}
+                  <br />
+                  All time wrong answers: {localStorage.wrongAnswers}
+                  <br />
+                  {Math.round(
+                    (Number(localStorage.rightAnswers) /
+                      (Number(localStorage.rightAnswers) +
+                        Number(localStorage.wrongAnswers))) *
+                      100
+                  )}
+                  % right answers
+                  <br />
+                  Longest Iron Man win streak: {localStorage.ironManStreak}
+                </Typography>
+              </Box>
+            </Fade>
           )}
         </>
       </Modal>
@@ -334,17 +366,17 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
       </Stack>
       <br />
       <Stack
-        direction="row"
+        direction="column"
         justifyContent="center"
         alignItems="center"
         spacing={1}
       >
         <Button
           variant="outlined"
-          
-          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "35%" }}
+          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "100%" }}
           onClick={() => {
             dispatch(setIronManModalFalse());
+            dispatch(setOptionsTrue());
             dispatch(handleOpen());
           }}
         >
@@ -352,8 +384,29 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         </Button>
         <Button
           variant="outlined"
-          
-          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "35%", lineHeight: "normal" }}
+          sx={{
+            height: 60,
+            fontSize: 16,
+            marginTop: 0,
+            width: "100%",
+            lineHeight: "normal",
+          }}
+          onClick={() => {
+            dispatch(setStatisticsTrue());
+            dispatch(handleOpen());
+          }}
+        >
+          {interfaceText.STATISTICS}
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{
+            height: 60,
+            fontSize: 16,
+            marginTop: 0,
+            width: "100%",
+            lineHeight: "normal",
+          }}
           onClick={() => {
             dispatch(setRU());
           }}

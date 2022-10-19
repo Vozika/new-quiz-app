@@ -14,6 +14,9 @@ import {
   setNumberOfQuestions,
   setIronManFalse,
   setHideLettersFalse,
+  setStatisticsFalse,
+  setOptionsFalse,
+  setIronManModalFalse
 } from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
 import {
@@ -50,9 +53,18 @@ import Buttons from "./components/buttons/Buttons";
 function App() {
   const dispatch = useDispatch();
   let Data = [];
+  let answers = [];
   let questionText = "";
   if (!localStorage.getItem("ironManStreak")) {
     localStorage.setItem("ironManStreak", 0);
+  }
+
+  if (!localStorage.getItem("rightAnswers")) {
+    localStorage.setItem("rightAnswers", 0);
+  }
+
+  if (!localStorage.getItem("wrongAnswers")) {
+    localStorage.setItem("wrongAnswers", 0);
   }
 
   console.log(localStorage);
@@ -100,8 +112,6 @@ function App() {
     const randomNumber = Math.floor(Math.random() * a);
     return randomNumber;
   }
-
-  let answers = [];
 
   function theEnd() {
     dispatch(setShowFadeTrue());
@@ -195,7 +205,9 @@ function App() {
       if (isCorrect) {
         dispatch(setScore());
         dispatch(setRightAnswer());
+        localStorage.rightAnswers = Number(localStorage.rightAnswers) + 1;
       } else {
+        localStorage.wrongAnswers = Number(localStorage.wrongAnswers) + 1;
         if (ironMan) {
           if (currentQuestion - 1 > localStorage.getItem("ironManStreak")) {
             localStorage.setItem("ironManStreak", currentQuestion - 1);
@@ -228,6 +240,9 @@ function App() {
 
   function startAgain() {
     dispatch(setIronManFalse());
+    dispatch(setOptionsFalse());
+    dispatch(setStatisticsFalse());
+    dispatch(setIronManModalFalse());
     dispatch(setShowFadeTrue());
     dispatch(setFlipFalse());
     dispatch(setShow5050False());
@@ -247,6 +262,8 @@ function App() {
     if (ironMan) {
       slicedItemsFromData.length = 0;
     }
+    dispatch(setOptionsFalse());
+    dispatch(setStatisticsFalse());
     dispatch(clearCurrentQuestion());
     dispatch(setShowFadeTrue());
     dispatch(clearRightAnswer());

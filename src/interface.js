@@ -25,11 +25,12 @@ export const interfaceEN = {
   QUESTIONS_CORRECT: "questions correct.",
   CLEAR_STREAK: "Clear Streak",
   QUESTION_TEXT: "What is the capital of",
-  QUESTION_TEXT_FLIP: "is the capital of which country?"
+  QUESTION_TEXT_FLIP: "is the capital of which country?",
+  STATISTICS: "Statistics"
 };
 
 export const interfaceRU = {
-  MAIN_TITLE: "Капитальный Квиз 2.0",
+  MAIN_TITLE: "Столица Квиз 2.0",
   OPTIONS: "Настройки",
   IRON_MAN_MODE: "Железный Человек",
   IRON_MAN_MODE_DESC: "195 вопросов. 50/50 не работает. Одна ошибка и проигрыш. Сколько сможете продержаться?",
@@ -55,5 +56,6 @@ export const interfaceRU = {
   QUESTIONS_CORRECT: "правильно.",
   CLEAR_STREAK: "Очистить запись",
   QUESTION_TEXT: "Какая столица этой страны:",
-  QUESTION_TEXT_FLIP: "столица какой страны?"
+  QUESTION_TEXT_FLIP: "столица какой страны?",
+  STATISTICS: "Статистика"
 };
