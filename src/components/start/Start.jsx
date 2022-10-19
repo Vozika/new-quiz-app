@@ -42,6 +42,14 @@ const style = {
   p: 3,
 };
 
+const button = {
+  height: 60,
+  fontSize: 16,
+  marginTop: 0,
+  width: "100%",
+  lineHeight: "normal",
+};
+
 const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
   const dispatch = useDispatch();
   const { open } = useSelector((store) => store.modal);
@@ -169,7 +177,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
       >
         <Button
           variant="outlined"
-          sx={{ height: 60, fontSize: 16, marginTop: 0, width: "100%" }}
+          sx={button}
           onClick={() => {
             dispatch(setIronManModalFalse());
             dispatch(setOptionsTrue());
@@ -180,13 +188,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         </Button>
         <Button
           variant="outlined"
-          sx={{
-            height: 60,
-            fontSize: 16,
-            marginTop: 0,
-            width: "100%",
-            lineHeight: "normal",
-          }}
+          sx={button}
           onClick={() => {
             dispatch(setStatisticsTrue());
             dispatch(handleOpen());
@@ -196,13 +198,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
         </Button>
         <Button
           variant="outlined"
-          sx={{
-            height: 60,
-            fontSize: 16,
-            marginTop: 0,
-            width: "100%",
-            lineHeight: "normal",
-          }}
+          sx={button}
           onClick={() => {
             dispatch(setRU());
           }}

@@ -16,7 +16,7 @@ import {
   setHideLettersFalse,
   setStatisticsFalse,
   setOptionsFalse,
-  setIronManModalFalse
+  setIronManModalFalse,
 } from "./features/options/optionsSlice";
 import { handleClose } from "./features/modal/modalSlice";
 import {
@@ -67,11 +67,18 @@ function App() {
     localStorage.setItem("wrongAnswers", 0);
   }
 
+  if (!localStorage.getItem("option5050")) {
+    localStorage.setItem("option5050", 0);
+  }
+
+  if (!localStorage.getItem("gamesFinished")) {
+    localStorage.setItem("gamesFinished", 0);
+  }
+
   console.log(localStorage);
 
-  const { flip, numberOfQuestions, numberOfAnswers, ironMan, RU } = useSelector(
-    (store) => store.options
-  );
+  const { flip, numberOfQuestions, numberOfAnswers, ironMan, RU, lessAnswers } =
+    useSelector((store) => store.options);
   const { currentQuestion } = useSelector((store) => store.score);
   const { isClicked, start, main, finish } = useSelector(
     (store) => store.utils
@@ -122,6 +129,7 @@ function App() {
 
   function mainAction() {
     if (currentQuestion === numberOfQuestions && main) {
+      localStorage.gamesFinished = Number(localStorage.gamesFinished) + 1;
       setTimeout(() => {
         theEnd();
       }, 450);
@@ -202,6 +210,9 @@ function App() {
 
   function answerClicked(isCorrect) {
     if (!isClicked) {
+      if (lessAnswers) {
+        localStorage.option5050 = Number(localStorage.option5050) + 1;
+      }
       if (isCorrect) {
         dispatch(setScore());
         dispatch(setRightAnswer());

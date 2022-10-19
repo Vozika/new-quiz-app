@@ -18,33 +18,32 @@ const style = {
 };
 
 const Statistics = () => {
-
-  const { interfaceText } = useSelector(
-    (store) => store.options
-  );
+  const { interfaceText } = useSelector((store) => store.options);
 
   return (
-    
-      <Box sx={style}>
-        <Typography variant="h2">{interfaceText.STATISTICS}</Typography>
-        <Typography sx={{ fontSize: 20 }}>
-          {interfaceText.All_TIME_RIGHT_ANSWERS} {localStorage.rightAnswers}
-          <br />
-          {interfaceText.All_TIME_WRONG_ANSWERS} {localStorage.wrongAnswers}
-          <br />
-          {Math.round(
-            (Number(localStorage.rightAnswers) /
-              (Number(localStorage.rightAnswers) +
-                Number(localStorage.wrongAnswers))) *
-              100
-          )}
-          {interfaceText.RIGHT_ANSWERS_ON_AVERAGE}
-          <br />
-          {interfaceText.LONGEST_IRON_MAN}
-          {localStorage.ironManStreak}
-        </Typography>
-      </Box>
-    
+    <Box sx={style}>
+      <Typography variant="h2">{interfaceText.STATISTICS}</Typography>
+      <Typography sx={{ fontSize: 20 }}>
+        {interfaceText.All_TIME_RIGHT_ANSWERS} {localStorage.rightAnswers}
+        <br />
+        {interfaceText.All_TIME_WRONG_ANSWERS} {localStorage.wrongAnswers}
+        <br />
+        {Math.round(
+          (Number(localStorage.rightAnswers) /
+            (Number(localStorage.rightAnswers) +
+              Number(localStorage.wrongAnswers))) *
+            100
+        )}
+        {interfaceText.RIGHT_ANSWERS_ON_AVERAGE}
+        <br />
+        {interfaceText.LONGEST_IRON_MAN}
+        {localStorage.ironManStreak}
+        <br />
+        {interfaceText.OPTION5050_USED} {localStorage.option5050}
+        <br />
+        {interfaceText.GAMES_FINISHED} {localStorage.gamesFinished}
+      </Typography>
+    </Box>
   );
 };
 

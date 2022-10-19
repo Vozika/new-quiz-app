@@ -30,7 +30,9 @@ export const interfaceEN = {
   All_TIME_RIGHT_ANSWERS: "All time right answers:",
   All_TIME_WRONG_ANSWERS: "All time wrong answers:",
   RIGHT_ANSWERS_ON_AVERAGE: "% right answers on average",
-  LONGEST_IRON_MAN: "Longest Iron Man win streak: "
+  LONGEST_IRON_MAN: "Longest Iron Man win streak: ",
+  OPTION5050_USED: "50/50 used:",
+  GAMES_FINISHED: "Games finished: "
 };
 
 export const interfaceRU = {
@@ -65,5 +67,7 @@ export const interfaceRU = {
   All_TIME_RIGHT_ANSWERS: "Верных ответов за всё время:",
   All_TIME_WRONG_ANSWERS: "Неверных ответов за всё время:",
   RIGHT_ANSWERS_ON_AVERAGE: "% верных ответов в среднем",
-  LONGEST_IRON_MAN: "Лучший результат Железных Яиц: "
+  LONGEST_IRON_MAN: "Лучший результат Железных Яиц: ",
+  OPTION5050_USED: "50/50 использовано:",
+  GAMES_FINISHED: "Всего игр закончено: "
 };
