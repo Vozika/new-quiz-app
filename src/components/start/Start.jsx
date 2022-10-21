@@ -109,7 +109,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
 
           {ironManModal && (
             <Box sx={style}>
-              <Typography variant="h2">
+              <Typography variant="h3">
                 {interfaceText.IRON_MAN_MODE}
               </Typography>
               <Typography sx={{ fontSize: 20, margin: 2 }}>
@@ -123,6 +123,7 @@ const Start = ({ Data, slicedItemsFromData, startQuiz }) => {
                   dispatch(setIronManTrue());
                   dispatch(setNumberOfQuestions(Data.length));
                   dispatch(setShow5050False());
+                  localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
                   sliced();
                   startQuiz();
                 }}

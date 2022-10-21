@@ -59,6 +59,10 @@ function App() {
     localStorage.setItem("ironManStreak", 0);
   }
 
+  if (!localStorage.getItem("ironManAttempts")) {
+    localStorage.setItem("ironManAttempts", 0);
+  }
+
   if (!localStorage.getItem("rightAnswers")) {
     localStorage.setItem("rightAnswers", 0);
   }

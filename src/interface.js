@@ -4,7 +4,7 @@ export const interfaceEN = {
   IRON_MAN_MODE: "Iron Man Mode",
   IRON_MAN_MODE_DESC: "195 questions. 50/50 doesn't work. One wrong answer and you lose. How long can you stand?",
   NORMAL_QUIZ: "Normal Quiz",
-  CHANGE_LANGUAGE: "Change Language",
+  CHANGE_LANGUAGE: "Русский Язык",
   I_WANT_TO_KNOW: "I want to know",
   NUMBER_OF_QUESTIONS: "Number of questions",
   FLIP: "Flip the question",
@@ -29,10 +29,11 @@ export const interfaceEN = {
   STATISTICS: "Statistics",
   All_TIME_RIGHT_ANSWERS: "All time right answers:",
   All_TIME_WRONG_ANSWERS: "All time wrong answers:",
-  RIGHT_ANSWERS_ON_AVERAGE: "% right answers on average",
+  RIGHT_ANSWERS_ON_AVERAGE: "Right answers on average, %",
   LONGEST_IRON_MAN: "Longest Iron Man win streak: ",
   OPTION5050_USED: "50/50 used:",
-  GAMES_FINISHED: "Games finished: "
+  GAMES_FINISHED: "Games finished: ",
+  IRON_MAN_ATTEMPTS: "Iron Man attempts: ",
 };
 
 export const interfaceRU = {
@@ -41,7 +42,7 @@ export const interfaceRU = {
   IRON_MAN_MODE: "Железные Яйца",
   IRON_MAN_MODE_DESC: "195 вопросов. 50/50 не работает. Одна ошибка и проигрыш. Сколько сможете продержаться?",
   NORMAL_QUIZ: "Обычный Квиз",
-  CHANGE_LANGUAGE: "Сменить Язык",
+  CHANGE_LANGUAGE: "English",
   I_WANT_TO_KNOW: "Хочу узнать",
   NUMBER_OF_QUESTIONS: "Количество вопросов",
   FLIP: "Наоборот",
@@ -66,8 +67,9 @@ export const interfaceRU = {
   STATISTICS: "Статистика",
   All_TIME_RIGHT_ANSWERS: "Верных ответов за всё время:",
   All_TIME_WRONG_ANSWERS: "Неверных ответов за всё время:",
-  RIGHT_ANSWERS_ON_AVERAGE: "% верных ответов в среднем",
-  LONGEST_IRON_MAN: "Лучший результат Железных Яиц: ",
+  RIGHT_ANSWERS_ON_AVERAGE: "Верных ответов в среднем, %",
+  LONGEST_IRON_MAN: "Лучший результат ЖЯ: ",
   OPTION5050_USED: "50/50 использовано:",
-  GAMES_FINISHED: "Всего игр закончено: "
+  GAMES_FINISHED: "Всего игр закончено: ",
+  IRON_MAN_ATTEMPTS: "Количество ЖЯ попыток: ",
 };
