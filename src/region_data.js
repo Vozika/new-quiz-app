@@ -1,4 +1,4 @@
-[
+export const initialData = [
   {
     country: "Afghanistan",
     region: "Asia",

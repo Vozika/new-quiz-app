@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import "./App.css";
-import initialData from "./id_data";
+import {initialData} from "./region_data";
 import initialDataRU from "./id_data_ru";
 
 import { interfaceRU } from "./interface";
