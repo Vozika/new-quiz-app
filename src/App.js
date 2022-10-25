@@ -55,29 +55,18 @@ function App() {
   let Data = [];
   let answers = [];
   let questionText = "";
-  if (!localStorage.getItem("ironManStreak")) {
-    localStorage.setItem("ironManStreak", 0);
-  }
+  const localStorageData = [
+    "ironManStreak",
+    "ironManAttempts",
+    "rightAnswers",
+    "wrongAnswers",
+    "option5050",
+    "gamesFinished",
+  ];
 
-  if (!localStorage.getItem("ironManAttempts")) {
-    localStorage.setItem("ironManAttempts", 0);
-  }
-
-  if (!localStorage.getItem("rightAnswers")) {
-    localStorage.setItem("rightAnswers", 0);
-  }
-
-  if (!localStorage.getItem("wrongAnswers")) {
-    localStorage.setItem("wrongAnswers", 0);
-  }
-
-  if (!localStorage.getItem("option5050")) {
-    localStorage.setItem("option5050", 0);
-  }
-
-  if (!localStorage.getItem("gamesFinished")) {
-    localStorage.setItem("gamesFinished", 0);
-  }
+  localStorageData.map(
+    (data) => !localStorage.getItem(data) && localStorage.setItem(data, 0)
+  );
 
   console.log(localStorage);
 
