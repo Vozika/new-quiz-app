@@ -68,8 +68,6 @@ function App() {
     (data) => !localStorage.getItem(data) && localStorage.setItem(data, 0)
   );
 
-  console.log(localStorage);
-
   const { flip, numberOfQuestions, numberOfAnswers, ironMan, RU, lessAnswers } =
     useSelector((store) => store.options);
   const { currentQuestion } = useSelector((store) => store.score);
@@ -103,6 +101,7 @@ function App() {
         capital: "",
         id: "",
         country: "",
+        region: "",
       },
     ],
   });
