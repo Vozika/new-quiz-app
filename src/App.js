@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import "./App.css";
-import {initialData} from "./region_data";
+import { initialData } from "./region_data";
 import initialDataRU from "./id_data_ru";
 
 import { interfaceRU } from "./interface";
@@ -131,9 +131,18 @@ function App() {
     dispatch(setFinishTrue());
   }
 
+  function ironManToLocalStorage() {
+    if (currentQuestion - 1 > localStorage.getItem("ironManStreak")) {
+      localStorage.setItem("ironManStreak", currentQuestion - 1);
+    }
+  }
+
   function mainAction() {
     if (currentQuestion === numberOfQuestions && main) {
       localStorage.gamesFinished = Number(localStorage.gamesFinished) + 1;
+      if (ironMan) {
+        ironManToLocalStorage();
+      }
       setTimeout(() => {
         theEnd();
       }, 450);
@@ -224,9 +233,7 @@ function App() {
       } else {
         localStorage.wrongAnswers = Number(localStorage.wrongAnswers) + 1;
         if (ironMan) {
-          if (currentQuestion - 1 > localStorage.getItem("ironManStreak")) {
-            localStorage.setItem("ironManStreak", currentQuestion - 1);
-          }
+          ironManToLocalStorage();
 
           setTimeout(() => {
             theEnd();
